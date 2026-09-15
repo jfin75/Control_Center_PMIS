@@ -1,0 +1,435 @@
+@import "tailwindcss";
+@import "../styles/tokens.css";
+
+/* Tailwind reads the project tokens, and only the project tokens: the default
+   color palette is cleared so no component can drift off the reference hues. */
+/* `rail:` styles apply while the sidebar is collapsed to its icon rail. */
+@custom-variant rail (&:where(html[data-sidebar="collapsed"] *));
+
+@theme {
+  --color-*: initial;
+  --color-white: #ffffff;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+
+  --font-sans: var(--font-figtree), "Segoe UI", system-ui, -apple-system, sans-serif;
+
+  /* Product type scale, ratio ≈ 1.125–1.2, fixed rem (scales with the text-size control). */
+  --text-2xs: 0.6875rem;
+  --text-2xs--line-height: 1rem;
+  --text-xs: 0.75rem;
+  --text-xs--line-height: 1.05rem;
+  --text-sm: 0.8125rem;
+  --text-sm--line-height: 1.2rem;
+  --text-base: 0.875rem;
+  --text-base--line-height: 1.3rem;
+  --text-md: 0.9375rem;
+  --text-md--line-height: 1.35rem;
+  --text-lg: 1.0625rem;
+  --text-lg--line-height: 1.5rem;
+  --text-xl: 1.25rem;
+  --text-xl--line-height: 1.7rem;
+  --text-2xl: 1.5rem;
+  --text-2xl--line-height: 1.95rem;
+  --text-3xl: 1.75rem;
+  --text-3xl--line-height: 2.2rem;
+
+  --radius-xs: 3px;
+  --radius-sm: 5px;
+  --radius-md: 7px;
+  --radius-lg: 10px;
+  --radius-xl: 14px;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-sunk: var(--surface-sunk);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-ink-4: var(--ink-4);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-line-soft: var(--line-soft);
+
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-tint: var(--accent-tint);
+  --color-accent-wash: var(--accent-wash);
+  --color-brand: var(--brand);
+
+  --color-pos: var(--pos);
+  --color-pos-ink: var(--pos-ink);
+  --color-pos-tint: var(--pos-tint);
+  --color-neg: var(--neg);
+  --color-neg-ink: var(--neg-ink);
+  --color-neg-tint: var(--neg-tint);
+  --color-warn: var(--warn);
+  --color-warn-ink: var(--warn-ink);
+  --color-warn-tint: var(--warn-tint);
+  --color-info: var(--info);
+  --color-info-tint: var(--info-tint);
+
+  --color-navy: var(--c-navy-500);
+  --color-cobalt: var(--c-cobalt-500);
+  --color-sky: var(--c-sky-400);
+  --color-teal: var(--c-teal-500);
+  --color-coral: var(--c-coral-500);
+  --color-amber: var(--c-amber-400);
+  --color-orange: var(--c-orange-400);
+  --color-pink: var(--c-pink-500);
+  --color-slate: var(--c-slate-400);
+
+  --shadow-panel: var(--shadow-panel);
+  --shadow-raised: var(--shadow-raised);
+  --shadow-overlay: var(--shadow-overlay);
+  --shadow-thumb: var(--shadow-thumb);
+}
+
+/* ---------------------------------------------------------------------------
+ * Base
+ * ------------------------------------------------------------------------- */
+
+@layer base {
+  html {
+    font-size: calc(100% * var(--text-scale));
+    -webkit-text-size-adjust: 100%;
+    color-scheme: light;
+  }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    line-height: var(--text-sm--line-height);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+  html[data-contrast="high"] :focus-visible {
+    outline-width: 3px;
+    outline-color: #0b2f6b;
+  }
+  ::selection {
+    background: var(--c-cobalt-200);
+  }
+  input,
+  select,
+  textarea,
+  button {
+    font: inherit;
+    color: inherit;
+  }
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  summary {
+    cursor: pointer;
+  }
+  dialog {
+    color: inherit;
+  }
+  dialog::backdrop {
+    background: rgb(18 26 44 / 0.28);
+  }
+  [hidden] {
+    display: none !important;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * Shell geometry — sidebar width lives on <html> so the pre-paint script can
+ * set it before React hydrates (no collapse flash).
+ * ------------------------------------------------------------------------- */
+
+html {
+  --sb: var(--sidebar-w);
+}
+html[data-sidebar="collapsed"] {
+  --sb: var(--rail-w);
+}
+
+.app-grid {
+  display: grid;
+  grid-template-columns: var(--sb) minmax(0, 1fr);
+  grid-template-rows: var(--topbar-h) minmax(0, 1fr);
+  height: 100dvh;
+  transition: grid-template-columns var(--dur) var(--ease-out);
+}
+
+/* Labels fade rather than reflow while the rail animates. */
+.nav-label {
+  transition: opacity var(--dur-fast) var(--ease-out);
+}
+html[data-sidebar="collapsed"] .nav-label {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* 640–767px: forced icon rail. Below 640px: the sidebar leaves the grid and
+   opens as an overlay from the top-bar menu button. */
+@media (min-width: 640px) and (max-width: 767px) {
+  html {
+    --sb: var(--rail-w);
+  }
+  .nav-label,
+  .nav-sub {
+    display: none !important;
+  }
+}
+@media (max-width: 767px) {
+  .hide-on-phone {
+    display: none !important;
+  }
+}
+@media (max-width: 639px) {
+  html,
+  html[data-sidebar] {
+    --sb: 0px;
+  }
+  html[data-sidebar="collapsed"] .nav-label {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .primary-nav {
+    position: fixed;
+    top: var(--topbar-h);
+    bottom: 0;
+    left: 0;
+    z-index: 50;
+    width: min(17rem, 85vw);
+    translate: -105% 0;
+    visibility: hidden;
+    transition: translate var(--dur) var(--ease-out), visibility var(--dur);
+  }
+  html[data-mobile-nav="open"] .primary-nav {
+    translate: 0 0;
+    visibility: visible;
+    box-shadow: var(--shadow-overlay);
+  }
+}
+@media (min-width: 640px) {
+  .mobile-only {
+    display: none !important;
+  }
+}
+
+/* Environment guard: a thin band on non-production environments. */
+html[data-env="staging"] .env-band {
+  background: var(--c-amber-400);
+}
+html[data-env="sandbox"] .env-band {
+  background: var(--c-teal-500);
+}
+
+/* ---------------------------------------------------------------------------
+ * Reusable component classes (kept small; most styling is utility-first)
+ * ------------------------------------------------------------------------- */
+
+@layer components {
+  .panel {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-panel);
+    border: var(--panel-border);
+  }
+
+  .num {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum" 1;
+  }
+
+  /* Data tables: hairline rows, small muted heads, right-aligned figures. */
+  .dt {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: var(--text-sm);
+  }
+  .dt thead th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background: var(--surface);
+    color: var(--ink-3);
+    font-size: var(--text-2xs);
+    line-height: 1rem;
+    font-weight: 600;
+    text-align: left;
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid var(--line);
+    white-space: nowrap;
+  }
+  .dt tbody td {
+    padding: 0.625rem 0.75rem;
+    border-bottom: 1px solid var(--line-soft);
+    vertical-align: middle;
+  }
+  .dt tbody tr:last-child td {
+    border-bottom: 0;
+  }
+  .dt tfoot td {
+    padding: 0.625rem 0.75rem;
+    border-top: 1px solid var(--line-strong);
+    font-weight: 700;
+  }
+  .dt .r {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+  .dt tbody tr.row-link:hover td,
+  .dt tbody tr[data-selected="true"] td {
+    background: var(--accent-wash);
+  }
+  .dt.compact tbody td {
+    padding-block: 0.45rem;
+  }
+
+  .field {
+    height: 2rem;
+    padding: 0 0.625rem;
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-md);
+    font-size: var(--text-sm);
+    color: var(--ink);
+    transition: border-color var(--dur-fast), box-shadow var(--dur-fast);
+  }
+  .field:hover {
+    border-color: var(--c-slate-400);
+  }
+  .field:focus-visible {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-tint);
+  }
+  .field[aria-invalid="true"] {
+    border-color: var(--neg-ink);
+    box-shadow: 0 0 0 3px var(--neg-tint);
+  }
+  .field::placeholder {
+    color: var(--ink-3);
+  }
+  select.field {
+    appearance: none;
+    padding-right: 1.75rem;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23566077' stroke-width='2.25' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.55rem center;
+  }
+  textarea.field {
+    height: auto;
+    padding: 0.5rem 0.625rem;
+    line-height: 1.45;
+  }
+
+  /* Horizontal scrollers show an edge shadow only while more content hides past that edge. */
+  .scroll-x {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    background:
+      linear-gradient(to right, var(--scroll-ground, var(--surface)) 30%, transparent) left center / 2.5rem 100% no-repeat local,
+      linear-gradient(to left, var(--scroll-ground, var(--surface)) 30%, transparent) right center / 2.5rem 100% no-repeat local,
+      radial-gradient(farthest-side at 0 50%, rgb(18 32 64 / 0.42), transparent) left center / 1.25rem 100% no-repeat scroll,
+      radial-gradient(farthest-side at 100% 50%, rgb(18 32 64 / 0.42), transparent) right center / 1.25rem 100% no-repeat scroll;
+  }
+
+  /* The reference's rule-free rows, for small summary tables inside widgets. */
+  .dt.quiet tbody td {
+    border-bottom: 0;
+    padding-block: 0.4rem;
+  }
+}
+
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes slide-in {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: none;
+  }
+}
+@keyframes grow-x {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+@keyframes pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 rgb(54 129 230 / 0.45);
+  }
+  100% {
+    box-shadow: 0 0 0 14px rgb(54 129 230 / 0);
+  }
+}
+
+/* MapLibre attribution and controls re-skinned into the product vocabulary. */
+.maplibregl-ctrl-group {
+  border-radius: var(--radius-md) !important;
+  box-shadow: var(--shadow-thumb) !important;
+  border: 1px solid var(--line) !important;
+}
+.maplibregl-ctrl-attrib {
+  font-size: 10px;
+  background: rgb(255 255 255 / 0.85) !important;
+}
+
+/* Print: only the report preview. */
+@media print {
+  @page {
+    margin: 14mm;
+  }
+  body * {
+    visibility: hidden;
+  }
+  .print-area,
+  .print-area * {
+    visibility: visible;
+  }
+  .print-area {
+    position: absolute;
+    inset: 0 auto auto 0;
+    width: 100%;
+    box-shadow: none !important;
+    border: 0 !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .app-grid {
+    display: block;
+    height: auto;
+  }
+  #main,
+  .print-area .scroll-x {
+    overflow: visible !important;
+    max-height: none !important;
+  }
+}

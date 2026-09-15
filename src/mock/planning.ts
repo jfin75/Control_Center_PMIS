@@ -1,0 +1,292 @@
+/** SYNTHETIC DEMONSTRATION DATA — see src/mock/org.ts. */
+
+export type StageGate = "Intake" | "Conceptual" | "Feasibility" | "Estimating";
+export const STAGE_GATES: Array<{ id: StageGate; blurb: string; estimateClass: string }> = [
+  { id: "Intake", blurb: "Need logged, sponsor named", estimateClass: "No estimate" },
+  { id: "Conceptual", blurb: "Scope framed, ROM range", estimateClass: "AACE Class 5 (−50% / +100%)" },
+  { id: "Feasibility", blurb: "Site and program tested", estimateClass: "AACE Class 4 (−30% / +50%)" },
+  { id: "Estimating", blurb: "Conceptual estimate for Board", estimateClass: "AACE Class 3 (−20% / +30%)" },
+];
+
+export type Driver = "Regulatory" | "Infrastructure renewal" | "Growth" | "Patient experience" | "Safety" | "Efficiency";
+
+export interface ProgramSpace {
+  space: string;
+  qty: number;
+  sfEach: number;
+}
+
+export interface PipelineItem {
+  id: string;
+  title: string;
+  propertyId: string;
+  stage: StageGate;
+  sponsor: string;
+  department: string;
+  driver: Driver;
+  requested: number;
+  roi: number | null; // projected annual return as a fraction of cost; null when mission-driven
+  priority: number; // 0–100 scoring matrix result
+  daysInStage: number;
+  scope: string;
+  program: ProgramSpace[];
+  targets: { board: string; designStart: string; constructionStart: string; occupancy: string };
+  /** ROM by Uniformat II group, in dollars. */
+  rom: Record<string, number>;
+}
+
+export const CAPITAL_ENVELOPE = {
+  fiscalYear: "FY27",
+  envelope: 96_000_000,
+  allocatedToApproved: 58_400_000,
+};
+
+export const PIPELINE: PipelineItem[] = [
+  {
+    id: "pl-ehs-cath",
+    title: "Eastside Cath Lab 3 & Hybrid Suite",
+    propertyId: "ehs-bellevue",
+    stage: "Estimating",
+    sponsor: "Dr. Priya Raman",
+    department: "Heart & Vascular",
+    driver: "Growth",
+    requested: 14_800_000,
+    roi: 0.21,
+    priority: 86,
+    daysInStage: 34,
+    scope:
+      "Convert two shelled bays on Level 2 into a third cath lab and a hybrid procedure suite with shared control room, pre/post holding for 8, and a dedicated equipment corridor. Existing labs stay open throughout.",
+    program: [
+      { space: "Cath lab (procedure room)", qty: 1, sfEach: 850 },
+      { space: "Hybrid procedure suite", qty: 1, sfEach: 1_100 },
+      { space: "Shared control room", qty: 1, sfEach: 420 },
+      { space: "Pre/post holding bay", qty: 8, sfEach: 120 },
+      { space: "Equipment & clean supply", qty: 2, sfEach: 220 },
+    ],
+    targets: { board: "2026-11-18", designStart: "2027-01-11", constructionStart: "2027-08-02", occupancy: "2028-06-30" },
+    rom: { A: 0, B: 180_000, C: 1_640_000, D: 3_960_000, E: 5_120_000, F: 610_000, G: 0, Z: 3_290_000 },
+  },
+  {
+    id: "pl-hmc-elev",
+    title: "Medical Center Elevator Modernization, Cars 1–6",
+    propertyId: "hmc-tacoma",
+    stage: "Estimating",
+    sponsor: "Mats Lindqvist",
+    department: "Facilities",
+    driver: "Infrastructure renewal",
+    requested: 7_450_000,
+    roi: null,
+    priority: 81,
+    daysInStage: 21,
+    scope: "Replace controllers, machines, and cab finishes on the six 1979 patient/visitor cars, two at a time, keeping four in service. Includes seismic upgrades and destination dispatch.",
+    program: [{ space: "Traction elevator modernization", qty: 6, sfEach: 0 }],
+    targets: { board: "2026-11-18", designStart: "2026-12-07", constructionStart: "2027-05-03", occupancy: "2029-01-31" },
+    rom: { A: 0, B: 0, C: 420_000, D: 5_310_000, E: 0, F: 180_000, G: 0, Z: 1_540_000 },
+  },
+  {
+    id: "pl-nsrh-bh",
+    title: "North Sound Inpatient Behavioral Health Unit",
+    propertyId: "nsrh-everett",
+    stage: "Feasibility",
+    sponsor: "Dr. Samuel Achterberg",
+    department: "Behavioral Health",
+    driver: "Patient experience",
+    requested: 22_600_000,
+    roi: 0.08,
+    priority: 78,
+    daysInStage: 58,
+    scope: "Renovate the vacated Level 5 med/surg unit into a 24-bed adult inpatient behavioral health unit with outdoor courtyard access, seclusion rooms, and staff respite.",
+    program: [
+      { space: "Private patient room", qty: 20, sfEach: 180 },
+      { space: "Semi-private room", qty: 2, sfEach: 260 },
+      { space: "Seclusion room", qty: 2, sfEach: 110 },
+      { space: "Group / dayroom", qty: 3, sfEach: 480 },
+      { space: "Secure courtyard", qty: 1, sfEach: 2_400 },
+    ],
+    targets: { board: "2027-02-17", designStart: "2027-04-05", constructionStart: "2028-01-10", occupancy: "2029-03-30" },
+    rom: { A: 0, B: 920_000, C: 6_480_000, D: 7_150_000, E: 1_210_000, F: 1_340_000, G: 640_000, Z: 4_860_000 },
+  },
+  {
+    id: "pl-psh-amb",
+    title: "South Hill Ambulatory Campus, Phase 1",
+    propertyId: "psh-puyallup",
+    stage: "Feasibility",
+    sponsor: "Adaeze Okafor",
+    department: "Strategy",
+    driver: "Growth",
+    requested: 68_000_000,
+    roi: 0.14,
+    priority: 74,
+    daysInStage: 92,
+    scope: "New 96,000 sf ambulatory building on the South Hill parcel: primary and specialty clinics, imaging, lab draw, and an urgent care with extended hours. Site plan preserves the east wetland buffer.",
+    program: [
+      { space: "Exam room", qty: 72, sfEach: 120 },
+      { space: "Imaging (CT/MR/X-ray/US)", qty: 6, sfEach: 600 },
+      { space: "Urgent care treatment", qty: 14, sfEach: 140 },
+      { space: "Lab draw station", qty: 8, sfEach: 80 },
+      { space: "Surface parking stall", qty: 420, sfEach: 0 },
+    ],
+    targets: { board: "2027-05-19", designStart: "2027-07-06", constructionStart: "2028-04-03", occupancy: "2029-10-31" },
+    rom: { A: 3_900_000, B: 11_200_000, C: 9_600_000, D: 16_800_000, E: 6_200_000, F: 0, G: 5_400_000, Z: 14_900_000 },
+  },
+  {
+    id: "pl-sodo-solar",
+    title: "SoDo Campus Rooftop Solar & Battery",
+    propertyId: "sodo-admin",
+    stage: "Conceptual",
+    sponsor: "Mats Lindqvist",
+    department: "Sustainability",
+    driver: "Efficiency",
+    requested: 3_100_000,
+    roi: 0.11,
+    priority: 62,
+    daysInStage: 40,
+    scope: "480 kW rooftop PV with 1 MWh battery storage for demand charge management; roof replacement coordinated in the same mobilization.",
+    program: [{ space: "Rooftop PV array", qty: 1, sfEach: 38_000 }],
+    targets: { board: "2027-02-17", designStart: "2027-03-01", constructionStart: "2027-07-12", occupancy: "2027-11-30" },
+    rom: { A: 0, B: 620_000, C: 0, D: 1_780_000, E: 0, F: 0, G: 60_000, Z: 640_000 },
+  },
+  {
+    id: "pl-lasc-steril",
+    title: "Lakewood ASC Sterile Core Refresh",
+    propertyId: "lasc-lakewood",
+    stage: "Conceptual",
+    sponsor: "Dr. Helen Marsh",
+    department: "Perioperative Services",
+    driver: "Regulatory",
+    requested: 1_850_000,
+    roi: null,
+    priority: 69,
+    daysInStage: 17,
+    scope: "Bring sterile core humidity control and pressure relationships to current FGI guidelines; replace two washer-disinfectors.",
+    program: [{ space: "Sterile core", qty: 1, sfEach: 1_600 }],
+    targets: { board: "2026-12-16", designStart: "2027-01-18", constructionStart: "2027-06-07", occupancy: "2027-09-30" },
+    rom: { A: 0, B: 0, C: 180_000, D: 920_000, E: 360_000, F: 0, G: 0, Z: 390_000 },
+  },
+  {
+    id: "pl-gh-imaging",
+    title: "Gig Harbor CT Addition",
+    propertyId: "gh-mob",
+    stage: "Conceptual",
+    sponsor: "Dr. Oren Feld",
+    department: "Imaging",
+    driver: "Growth",
+    requested: 2_650_000,
+    roi: 0.19,
+    priority: 66,
+    daysInStage: 28,
+    scope: "Add a 64-slice CT in shelled suite 130 adjacent to existing imaging, with shared control and two prep bays.",
+    program: [
+      { space: "CT scan room", qty: 1, sfEach: 420 },
+      { space: "Prep bay", qty: 2, sfEach: 100 },
+    ],
+    targets: { board: "2026-12-16", designStart: "2027-01-11", constructionStart: "2027-04-19", occupancy: "2027-08-31" },
+    rom: { A: 0, B: 0, C: 290_000, D: 480_000, E: 1_320_000, F: 110_000, G: 0, Z: 450_000 },
+  },
+  {
+    id: "pl-ehs-garage",
+    title: "Eastside Parking Structure Deck Repair",
+    propertyId: "ehs-bellevue",
+    stage: "Intake",
+    sponsor: "Mats Lindqvist",
+    department: "Facilities",
+    driver: "Safety",
+    requested: 4_200_000,
+    roi: null,
+    priority: 71,
+    daysInStage: 9,
+    scope: "Condition assessment flagged delamination on levels 3–4. Repair, add traffic coating, and replace expansion joints.",
+    program: [],
+    targets: { board: "2027-02-17", designStart: "2027-03-01", constructionStart: "2027-06-01", occupancy: "2027-10-29" },
+    rom: {},
+  },
+  {
+    id: "pl-cmp-mob",
+    title: "Capitol Pavilion Vacant Suite 420 Spec TI",
+    propertyId: "cmp-olympia",
+    stage: "Intake",
+    sponsor: "Marta Kowalczyk",
+    department: "Real Estate",
+    driver: "Growth",
+    requested: 1_150_000,
+    roi: 0.16,
+    priority: 55,
+    daysInStage: 12,
+    scope: "Spec-suite build-out of 6,400 sf to lease to a specialty group; two prospects in LOI discussion.",
+    program: [{ space: "Spec clinic suite", qty: 1, sfEach: 6_400 }],
+    targets: { board: "2026-12-16", designStart: "2027-01-04", constructionStart: "2027-03-15", occupancy: "2027-07-30" },
+    rom: {},
+  },
+  {
+    id: "pl-tdc-cooling",
+    title: "Data Center Cooling Redundancy (N+1 → N+2)",
+    propertyId: "tdc-tukwila",
+    stage: "Intake",
+    sponsor: "Grace Whitfield",
+    department: "Digital Technology Services",
+    driver: "Infrastructure renewal",
+    requested: 2_900_000,
+    roi: null,
+    priority: 64,
+    daysInStage: 6,
+    scope: "Add a CRAH unit and a second dry cooler loop to reach N+2 on the Epic production hall.",
+    program: [],
+    targets: { board: "2027-02-17", designStart: "2027-03-15", constructionStart: "2027-07-19", occupancy: "2027-12-17" },
+    rom: {},
+  },
+  {
+    id: "pl-kvsc-fleet",
+    title: "Kent Support Center Fleet EV Charging",
+    propertyId: "kvsc-kent",
+    stage: "Conceptual",
+    sponsor: "Mats Lindqvist",
+    department: "Sustainability",
+    driver: "Efficiency",
+    requested: 1_400_000,
+    roi: 0.09,
+    priority: 48,
+    daysInStage: 51,
+    scope: "24 Level 2 and 4 DC fast chargers for the courier and facilities fleet, with a service upgrade sized for 60 future stalls.",
+    program: [{ space: "EV charging stall", qty: 28, sfEach: 0 }],
+    targets: { board: "2027-02-17", designStart: "2027-03-01", constructionStart: "2027-06-14", occupancy: "2027-09-30" },
+    rom: { A: 0, B: 0, C: 0, D: 820_000, E: 0, F: 0, G: 260_000, Z: 320_000 },
+  },
+  {
+    id: "pl-scc-infusion",
+    title: "Silverdale Infusion Expansion",
+    propertyId: "scc-silverdale",
+    stage: "Feasibility",
+    sponsor: "Dr. Amara Osei",
+    department: "Oncology",
+    driver: "Patient experience",
+    requested: 5_600_000,
+    roi: 0.17,
+    priority: 76,
+    daysInStage: 44,
+    scope: "Grow infusion from 18 to 30 chairs with private bays, a pharmacy USP 800 compounding room, and a family lounge overlooking the bay.",
+    program: [
+      { space: "Infusion bay (semi-private)", qty: 12, sfEach: 110 },
+      { space: "USP 800 compounding", qty: 1, sfEach: 480 },
+      { space: "Family lounge", qty: 1, sfEach: 600 },
+    ],
+    targets: { board: "2027-02-17", designStart: "2027-03-15", constructionStart: "2027-09-06", occupancy: "2028-04-28" },
+    rom: { A: 0, B: 0, C: 1_380_000, D: 1_760_000, E: 820_000, F: 420_000, G: 0, Z: 1_220_000 },
+  },
+  {
+    id: "pl-ihp-landuse",
+    title: "Issaquah Highlands Land-Use Entitlement",
+    propertyId: "ihp-issaquah",
+    stage: "Intake",
+    sponsor: "Adaeze Okafor",
+    department: "Strategy",
+    driver: "Growth",
+    requested: 650_000,
+    roi: null,
+    priority: 52,
+    daysInStage: 3,
+    scope: "Traffic study, master site plan, and entitlement package for a future medical office and urgent care.",
+    program: [],
+    targets: { board: "2026-12-16", designStart: "2027-01-04", constructionStart: "2028-05-01", occupancy: "2029-06-29" },
+    rom: {},
+  },
+];

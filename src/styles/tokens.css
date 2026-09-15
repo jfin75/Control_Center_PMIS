@@ -1,0 +1,179 @@
+/*
+ * Control Center design tokens
+ * ----------------------------------------------------------------------------
+ * Extracted from the reference captures in Private/UI samples (Capture 1–5).
+ * Raw hexes were pixel-sampled; text-bearing variants are darkened only as far
+ * as WCAG 2.2 AA requires (ratios noted). Data fills keep the sampled hue.
+ *
+ *   canvas   #F6F9FD  sampled #F7FBFE   pale blue-white page ground
+ *   surface  #FFFFFF                    panels, sidebar, top bar
+ *   cobalt   #3681E6  sampled #3681E6   primary data fill, map pins, bars
+ *   navy     #334293  sampled #334293   series 1, strongest data ink
+ *   sky      #4DBAF6  sampled #4EBAF6   series 3, forecast
+ *   teal     #00C6A2  sampled #00C6A3   positive / won / complete
+ *   coral    #FF6666  sampled #FF6666   negative / lost / overrun
+ *   amber    #FFCF7A  sampled #FFCF7B   target / caution / pending
+ *   orange   #FFA35F  sampled #FFA35F   land, secondary caution
+ *   pink     #F55488  sampled #F55488   specialty series
+ *   cyan     #00B5C8  sampled #00B5C8   series 5
+ *   slate    #899BB3  sampled #899BB3   neutral series, "other"
+ */
+
+:root {
+  /* ---- Raw palette ------------------------------------------------------ */
+  --c-cobalt-50: #eef5fe;
+  --c-cobalt-100: #e3effc; /* active nav pill, sampled #DEF2F9/#E4F0FC */
+  --c-cobalt-200: #c6dcf8;
+  --c-cobalt-400: #5c97eb;
+  --c-cobalt-500: #3681e6;
+  --c-cobalt-600: #2468cc; /* white text 5.35:1 */
+  --c-cobalt-700: #1f5bb3; /* on cobalt-100 5.4:1 */
+  --c-cobalt-800: #184a94;
+
+  --c-navy-500: #334293;
+  --c-navy-600: #2a3780;
+  --c-sky-400: #4dbaf6;
+  --c-sky-100: #e2f3fd;
+  --c-teal-500: #00c6a2;
+  --c-teal-100: #dcf6f0;
+  --c-teal-700: #03735e; /* on teal-100 4.7:1 */
+  --c-coral-500: #ff6666;
+  --c-coral-100: #ffe9e8;
+  --c-coral-700: #c2303a; /* on coral-100 4.9:1 */
+  --c-amber-400: #ffcf7a;
+  --c-amber-100: #fff3dc;
+  --c-amber-800: #8a5700; /* on amber-100 5.5:1 */
+  --c-orange-400: #ffa35f;
+  --c-pink-500: #f55488;
+  --c-cyan-500: #00b5c8;
+  --c-slate-400: #899bb3;
+  --c-purple-500: #9a6fd0;
+  --c-purple-100: #ece4f7;
+  --c-purple-700: #57378a;
+
+  /* ---- Neutrals (blue-cast, from the reference's cool grays) ------------ */
+  --c-ink-900: #121a2c; /* titles and numbers, 17:1 */
+  --c-ink-700: #2b3447;
+  --c-ink-500: #566077; /* secondary text 6.1:1 on white */
+  --c-ink-400: #5f6980; /* tertiary / column headers 5.5:1 on white, 4.7:1 on the cobalt-100 selection tint */
+  --c-ink-300: #848ea2; /* disabled glyphs, zero-dashes, separators (3.3:1, non-essential) */
+  --c-line-strong: #d5dde8;
+  --c-line: #e6ecf3;
+  --c-line-soft: #eff3f8;
+  --c-canvas: #f6f9fd;
+  --c-surface: #ffffff;
+  --c-surface-2: #f9fbfe; /* second neutral layer: table heads, inset wells */
+  --c-surface-sunk: #f1f5fa; /* segmented-control track, sampled #F0F0F6 */
+
+  /* ---- Semantic roles --------------------------------------------------- */
+  --bg: var(--c-canvas);
+  --surface: var(--c-surface);
+  --surface-2: var(--c-surface-2);
+  --surface-sunk: var(--c-surface-sunk);
+  --ink: var(--c-ink-900);
+  --ink-2: var(--c-ink-500);
+  --ink-3: var(--c-ink-400);
+  --ink-4: var(--c-ink-300);
+  --line: var(--c-line);
+  --line-strong: var(--c-line-strong);
+  --line-soft: var(--c-line-soft);
+
+  --accent: var(--c-cobalt-600); /* buttons, links, focus */
+  --accent-hover: var(--c-cobalt-800);
+  --accent-ink: var(--c-cobalt-700); /* text on accent-tint */
+  --accent-tint: var(--c-cobalt-100);
+  --accent-wash: var(--c-cobalt-50);
+  --brand: var(--c-cobalt-500); /* data fills */
+
+  --pos: var(--c-teal-500);
+  --pos-ink: var(--c-teal-700);
+  --pos-tint: var(--c-teal-100);
+  --neg: var(--c-coral-500);
+  --neg-ink: var(--c-coral-700);
+  --neg-tint: var(--c-coral-100);
+  --warn: var(--c-amber-400);
+  --warn-ink: var(--c-amber-800);
+  --warn-tint: var(--c-amber-100);
+  --info: var(--c-sky-400);
+  --info-tint: var(--c-sky-100);
+
+  /* Categorical series, in the reference's order of use */
+  --series-1: var(--c-navy-500);
+  --series-2: var(--c-cobalt-500);
+  --series-3: var(--c-sky-400);
+  --series-4: var(--c-teal-500);
+  --series-5: var(--c-amber-400);
+  --series-6: var(--c-orange-400);
+  --series-7: var(--c-pink-500);
+  --series-8: var(--c-slate-400);
+
+  /* ---- Shape language --------------------------------------------------- */
+  --radius-xs: 3px; /* bar ends, sampled from bar caps */
+  --radius-sm: 5px; /* chips, segmented thumb */
+  --radius-md: 7px; /* controls, pills */
+  --radius-lg: 10px; /* panels */
+  --radius-xl: 14px; /* drawers, dialogs */
+
+  /* Panels in the reference float on the canvas with an almost invisible
+     two-layer shadow and no hard border. */
+  --shadow-panel: 0 1px 2px rgb(18 32 64 / 0.04), 0 6px 20px -8px rgb(18 32 64 / 0.08);
+  --shadow-raised: 0 2px 4px rgb(18 32 64 / 0.05), 0 12px 28px -10px rgb(18 32 64 / 0.16);
+  --shadow-overlay: 0 4px 10px rgb(18 32 64 / 0.06), 0 24px 60px -12px rgb(18 32 64 / 0.28);
+  --shadow-thumb: 0 1px 2px rgb(18 32 64 / 0.1), 0 1px 1px rgb(18 32 64 / 0.04);
+  --panel-border: 1px solid var(--line-soft);
+
+  --focus-ring: 0 0 0 2px var(--surface), 0 0 0 4px var(--accent);
+
+  /* ---- Layout ----------------------------------------------------------- */
+  --topbar-h: 3.25rem;
+  --rail-w: 4rem;
+  --sidebar-w: 14.5rem;
+  --drawer-w: 30rem;
+
+  /* ---- Motion ----------------------------------------------------------- */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 120ms;
+  --dur: 200ms;
+  --dur-slow: 320ms;
+
+  /* ---- Accessibility preferences (set on <html> before first paint) ---- */
+  --text-scale: 1;
+}
+
+/* Text scaling: every size and space is rem-based, so this scales the UI. */
+html[data-textscale="90"] { --text-scale: 0.9; }
+html[data-textscale="112"] { --text-scale: 1.125; }
+html[data-textscale="125"] { --text-scale: 1.25; }
+
+/* High contrast: darker secondary ink, visible hairlines, bordered panels. */
+html[data-contrast="high"] {
+  --ink-2: #2f384b;
+  --ink-3: #3d465a;
+  --ink-4: #5d6780;
+  --line: #b9c4d3;
+  --line-strong: #8391a7;
+  --line-soft: #c9d2de;
+  --bg: #eef2f7;
+  --accent: #1a52a8;
+  --accent-ink: #143f85;
+  --pos-ink: #025a49;
+  --neg-ink: #9e1f29;
+  --warn-ink: #6b4300;
+  --panel-border: 1px solid #9aa7ba;
+  --focus-ring: 0 0 0 2px var(--surface), 0 0 0 5px #0b2f6b;
+}
+
+html[data-motion="reduced"] {
+  --dur-fast: 0ms;
+  --dur: 0ms;
+  --dur-slow: 0ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-fast: 0ms;
+    --dur: 0ms;
+    --dur-slow: 0ms;
+  }
+}

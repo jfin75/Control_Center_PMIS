@@ -1,0 +1,224 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-14T00:00:00Z",
+  "title": "Design System: Control Center",
+  "extensions": {
+    "colorMeta": {
+      "canvas": { "role": "neutral", "displayName": "Daylight Canvas", "canonical": "oklch(98.1% 0.006 255.5)", "tonalRamp": ["#090b0e", "#222427", "#3e4043", "#5b5e61", "#7e8084", "#a2a5a8", "#c8cbcf", "#eceff3"] },
+      "surface": { "role": "neutral", "displayName": "Panel White", "canonical": "oklch(100% 0 0)", "tonalRamp": ["#0b0b0b", "#242424", "#404040", "#5d5d5d", "#808080", "#a4a4a4", "#cacaca", "#eeeeee"] },
+      "surface-2": { "role": "neutral", "displayName": "Second Layer" },
+      "surface-sunk": { "role": "neutral", "displayName": "Sunk Track" },
+      "ink": { "role": "neutral", "displayName": "Ink", "canonical": "oklch(22.0% 0.037 265.2)", "tonalRamp": ["#050a1b", "#1b2436", "#364054", "#535e73", "#758097", "#99a5bd", "#bfcbe4", "#e7efff"] },
+      "ink-2": { "role": "neutral", "displayName": "Ink 2 (secondary, 6.1:1)", "canonical": "oklch(48.9% 0.039 266.5)" },
+      "ink-3": { "role": "neutral", "displayName": "Ink 3 (metadata, 5.5:1)", "canonical": "oklch(52.1% 0.038 266.6)" },
+      "ink-4": { "role": "neutral", "displayName": "Ink 4 (non-essential, 3.3:1)", "canonical": "oklch(64.5% 0.032 264.3)" },
+      "line-strong": { "role": "neutral", "displayName": "Line Strong" },
+      "line": { "role": "neutral", "displayName": "Line", "canonical": "oklch(94.1% 0.011 252.1)", "tonalRamp": ["#080c10", "#20242a", "#3b4046", "#595e64", "#7b8187", "#a0a5ac", "#c5cbd2", "#e9eff6"] },
+      "line-soft": { "role": "neutral", "displayName": "Line Soft" },
+      "cobalt": { "role": "primary", "displayName": "Reference Cobalt (data fill)", "tonalRamp": ["#184a94", "#1f5bb3", "#2468cc", "#3681e6", "#5c97eb", "#c6dcf8", "#e3effc", "#eef5fe"] },
+      "accent": { "role": "primary", "displayName": "Working Cobalt (interactive, white text 5.35:1)", "tonalRamp": ["#184a94", "#1f5bb3", "#2468cc", "#3681e6", "#5c97eb", "#c6dcf8", "#e3effc", "#eef5fe"] },
+      "accent-hover": { "role": "primary", "displayName": "Deep Cobalt" },
+      "accent-ink": { "role": "primary", "displayName": "Cobalt Ink (5.4:1 on tint)" },
+      "accent-tint": { "role": "primary", "displayName": "Cobalt Tint" },
+      "accent-wash": { "role": "primary", "displayName": "Cobalt Wash" },
+      "cobalt-200": { "role": "primary", "displayName": "Cobalt Mist" },
+      "navy": { "role": "secondary", "displayName": "Ledger Navy (series 1)", "canonical": "oklch(41.4% 0.134 271.4)", "tonalRamp": ["#040035", "#121463", "#293585", "#4355a8", "#6479d0", "#879ef8", "#b8c8fe", "#e9eefe"] },
+      "sky": { "role": "secondary", "displayName": "Forecast Sky (series 3, info)", "canonical": "oklch(75.1% 0.131 236.5)", "tonalRamp": ["#000d18", "#00273c", "#004565", "#036590", "#058ac3", "#41b0eb", "#90d4fe", "#def2ff"] },
+      "sky-tint": { "role": "secondary", "displayName": "Sky Tint" },
+      "teal": { "role": "tertiary", "displayName": "Settled Teal (positive, series 4)", "canonical": "oklch(73.7% 0.141 173.4)", "tonalRamp": ["#000f0a", "#002c22", "#004c3c", "#036e59", "#00967a", "#06c09d", "#4ae8c2", "#bdffea"] },
+      "teal-ink": { "role": "tertiary", "displayName": "Teal Ink (4.7:1 on tint)" },
+      "teal-tint": { "role": "tertiary", "displayName": "Teal Tint" },
+      "coral": { "role": "tertiary", "displayName": "Overrun Coral (negative)", "canonical": "oklch(70.4% 0.187 23.2)", "tonalRamp": ["#200001", "#4b0008", "#7c0015", "#af0e25", "#d94347", "#ff716f", "#ffb5b0", "#fee9e7"] },
+      "coral-ink": { "role": "tertiary", "displayName": "Coral Ink (4.9:1 on tint)" },
+      "coral-tint": { "role": "tertiary", "displayName": "Coral Tint" },
+      "amber": { "role": "tertiary", "displayName": "Caution Amber (series 5)", "canonical": "oklch(87.9% 0.117 80.6)", "tonalRamp": ["#130900", "#312100", "#543a00", "#7a5601", "#a47718", "#ca9c46", "#f2c26d", "#feeccd"] },
+      "amber-ink": { "role": "tertiary", "displayName": "Amber Ink (5.5:1 on tint)" },
+      "amber-tint": { "role": "tertiary", "displayName": "Amber Tint" },
+      "orange": { "role": "tertiary", "displayName": "Land Orange (series 6)", "canonical": "oklch(79.5% 0.138 55.6)", "tonalRamp": ["#180500", "#3b1a00", "#633000", "#8e4801", "#bd661a", "#e58b47", "#feb989", "#ffeadc"] },
+      "pink": { "role": "tertiary", "displayName": "Specialty Pink (series 7)", "canonical": "oklch(67.6% 0.200 4.4)", "tonalRamp": ["#1f0008", "#49001e", "#790036", "#ad0050", "#d93971", "#fe6a96", "#feb2c3", "#ffe8ec"] },
+      "slate": { "role": "neutral", "displayName": "Other Slate (series 8)", "canonical": "oklch(68.4% 0.041 255.7)", "tonalRamp": ["#020b1c", "#162538", "#314155", "#4e5f75", "#708299", "#94a6bf", "#b9cce6", "#e5f0fe"] },
+      "purple": { "role": "tertiary", "displayName": "Reserve Purple (9th classification)", "canonical": "oklch(62.6% 0.147 302.9)", "tonalRamp": ["#130028", "#330059", "#50227e", "#6f43a0", "#9267c7", "#b78cf0", "#d7bcfe", "#f2eaff"] }
+    },
+    "typographyMeta": {
+      "figure": { "displayName": "Figure", "purpose": "KPI strip values and single headline numbers; tabular figures." },
+      "headline": { "displayName": "Headline", "purpose": "Page title (h1), one per page." },
+      "title": { "displayName": "Title", "purpose": "Section titles between panel groups; dialog titles." },
+      "narrative": { "displayName": "Narrative", "purpose": "The signature sentence; figures inside set bold 700 in Cobalt, Coral, or Teal Ink. Max 68ch." },
+      "panel-title": { "displayName": "Panel Title", "purpose": "Every panel header." },
+      "body": { "displayName": "Body", "purpose": "Document default, table cells, list rows." },
+      "label": { "displayName": "Label", "purpose": "Metadata lines under headings, KPI and fact labels, badge text." },
+      "micro": { "displayName": "Micro", "purpose": "Table column heads, legends, chips, in-bar figures, kbd hints." },
+      "segment": { "displayName": "Segment", "purpose": "Segmented-control options only; the one uppercase style." }
+    },
+    "shadows": [
+      { "name": "panel", "value": "0 1px 2px rgb(18 32 64 / 0.04), 0 6px 20px -8px rgb(18 32 64 / 0.08)", "purpose": "Every panel and the KPI strip; paired with a 1px Line Soft border." },
+      { "name": "raised", "value": "0 2px 4px rgb(18 32 64 / 0.05), 0 12px 28px -10px rgb(18 32 64 / 0.16)", "purpose": "Tooltips, chart tooltips, map pin labels." },
+      { "name": "overlay", "value": "0 4px 10px rgb(18 32 64 / 0.06), 0 24px 60px -12px rgb(18 32 64 / 0.28)", "purpose": "Popovers, drawers, dialogs, toasts, mobile nav sheet." },
+      { "name": "thumb", "value": "0 1px 2px rgb(18 32 64 / 0.1), 0 1px 1px rgb(18 32 64 / 0.04)", "purpose": "Segmented thumb, switch knob, primary button, map controls." },
+      { "name": "focus-ring", "value": "0 0 0 2px var(--surface), 0 0 0 4px var(--accent)", "purpose": "Ring-style focus; the base outline is 2px Working Cobalt offset 2px." },
+      { "name": "field-focus", "value": "0 0 0 3px var(--accent-tint)", "purpose": "Halo on focused fields (border turns Working Cobalt)." }
+    ],
+    "motion": [
+      { "name": "ease-out", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Default easing: rail collapse, drawer slide, bar grow, pop-in." },
+      { "name": "ease-in-out", "value": "cubic-bezier(0.65, 0, 0.35, 1)", "purpose": "Symmetric transitions." },
+      { "name": "dur-fast", "value": "120ms", "purpose": "Hover and color changes, nav label fade, tooltip delay." },
+      { "name": "dur", "value": "200ms", "purpose": "Sidebar grid transition, popover and dialog pop-in, switch." },
+      { "name": "dur-slow", "value": "320ms", "purpose": "Drawer slide-in, data bar grow-x." },
+      { "name": "reduced", "value": "0ms", "purpose": "All durations collapse to 0 under prefers-reduced-motion or html[data-motion=reduced]." }
+    ],
+    "breakpoints": [
+      { "name": "phone", "value": "<640px", "note": "Sidebar leaves the grid, opens as an overlay sheet." },
+      { "name": "sm", "value": "640px", "note": "Forced icon rail 640-767px." },
+      { "name": "md", "value": "768px", "note": "Full sidebar; 2-column panel grids." },
+      { "name": "lg", "value": "1024px" },
+      { "name": "xl", "value": "1280px", "note": "3-column panel grids; 5-cell KPI strip." }
+    ],
+    "layout": {
+      "topbarHeight": "3.25rem",
+      "sidebarWidth": "14.5rem",
+      "railWidth": "4rem",
+      "drawerWidth": "30rem",
+      "contentMaxWidth": "110rem",
+      "rhythm": "20px between panels and inside panels"
+    },
+    "accessibilityModes": [
+      { "name": "high-contrast", "selector": "html[data-contrast=high]", "purpose": "Darker ink-2/3/4 and status inks, visible hairlines, bordered panels, 3px deep-navy focus." },
+      { "name": "text-scale", "selector": "html[data-textscale=90|112|125]", "purpose": "Scales root font-size; all type and spacing are rem." }
+    ]
+  },
+  "components": [
+    {
+      "name": "Panel",
+      "kind": "card",
+      "refersTo": "panel",
+      "description": "White borderless 10px panel on the canvas; the only container. Subsections inside use a title plus hairline, never another box.",
+      "html": "<section class=\"ds-panel\"><header class=\"ds-panel-head\"><h2 class=\"ds-panel-title\">Budget chain</h2><button class=\"ds-panel-info\" aria-label=\"About\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"M12 16v-4\"/><path d=\"M12 8h.01\"/></svg></button></header><div class=\"ds-panel-body\"><p class=\"ds-panel-text\">Bars share one scale.</p><div class=\"ds-panel-sub\"><div class=\"ds-panel-subtitle\">Where the approved budget stands</div><div class=\"ds-panel-meta\">% complete of commitment (K) = 62%</div></div></div></section>",
+      "css": ".ds-panel { background: var(--surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-panel); border: var(--panel-border); font-family: Figtree, 'Segoe UI', system-ui, sans-serif; color: var(--ink); max-width: 420px; } .ds-panel-head { display: flex; align-items: center; gap: 6px; min-height: 56px; padding: 16px 20px 12px; } .ds-panel-title { margin: 0; font-size: 0.9375rem; line-height: 1.35rem; font-weight: 600; letter-spacing: -0.005em; } .ds-panel-info { display: inline-flex; width: 20px; height: 20px; align-items: center; justify-content: center; border: 0; background: none; border-radius: 9999px; color: var(--ink-3); cursor: pointer; } .ds-panel-info:hover { color: var(--accent-ink); } .ds-panel-info:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; } .ds-panel-body { padding: 0 20px 20px; } .ds-panel-text { margin: 0; font-size: 0.8125rem; line-height: 1.2rem; color: var(--ink-2); } .ds-panel-sub { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--line); } .ds-panel-subtitle { font-size: 0.8125rem; font-weight: 600; } .ds-panel-meta { font-size: 0.75rem; color: var(--ink-3); }"
+    },
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Working Cobalt fill, white semibold text, 32px tall, 7px radius, thumb shadow.",
+      "html": "<button class=\"ds-btn-primary\">Approve funding</button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border: 0; border-radius: var(--radius-md); background: var(--accent); color: #fff; font: 600 0.8125rem/1.2rem Figtree, 'Segoe UI', system-ui, sans-serif; box-shadow: var(--shadow-thumb); cursor: pointer; transition: background-color var(--dur-fast), box-shadow var(--dur-fast); } .ds-btn-primary:hover { background: var(--accent-hover); } .ds-btn-primary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; } .ds-btn-primary:disabled { background: var(--ink-4); cursor: not-allowed; }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "The default button: white, Line Strong hairline, Ink text.",
+      "html": "<button class=\"ds-btn-secondary\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4\"/><path d=\"m7 10 5 5 5-5\"/><path d=\"M12 15V3\"/></svg>Export CSV</button>",
+      "css": ".ds-btn-secondary { display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border: 1px solid var(--line-strong); border-radius: var(--radius-md); background: var(--surface); color: var(--ink); font: 600 0.8125rem/1.2rem Figtree, 'Segoe UI', system-ui, sans-serif; cursor: pointer; transition: background-color var(--dur-fast), border-color var(--dur-fast); } .ds-btn-secondary:hover { border-color: var(--c-slate-400); background: var(--surface-2); } .ds-btn-secondary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }"
+    },
+    {
+      "name": "Tint and Ghost Buttons",
+      "kind": "button",
+      "refersTo": "button-tint",
+      "description": "Tint: Cobalt Tint ground, Cobalt Ink text, for low-emphasis actions. Ghost: no ground, sunk on hover, for icon buttons.",
+      "html": "<div class=\"ds-btn-row\"><button class=\"ds-btn-tint\">Customize</button><button class=\"ds-btn-ghost\" aria-label=\"Notifications\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9\"/><path d=\"M10.3 21a1.94 1.94 0 0 0 3.4 0\"/></svg></button></div>",
+      "css": ".ds-btn-row { display: flex; gap: 8px; align-items: center; } .ds-btn-tint { height: 32px; padding: 0 12px; border: 0; border-radius: var(--radius-md); background: var(--accent-tint); color: var(--accent-ink); font: 600 0.8125rem/1.2rem Figtree, 'Segoe UI', system-ui, sans-serif; cursor: pointer; transition: background-color var(--dur-fast); } .ds-btn-tint:hover { background: var(--c-cobalt-200); } .ds-btn-ghost { display: inline-flex; width: 36px; height: 36px; align-items: center; justify-content: center; border: 0; border-radius: var(--radius-md); background: transparent; color: var(--ink-2); cursor: pointer; transition: background-color var(--dur-fast), color var(--dur-fast); } .ds-btn-ghost:hover { background: var(--surface-sunk); color: var(--ink); } .ds-btn-tint:focus-visible, .ds-btn-ghost:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }"
+    },
+    {
+      "name": "Field",
+      "kind": "input",
+      "refersTo": "field",
+      "description": "32px white field, Line Strong hairline, 7px radius; focus turns the border cobalt with a tint halo; invalid uses coral.",
+      "html": "<label class=\"ds-field-wrap\"><span class=\"ds-field-label\">Filter properties</span><input class=\"ds-field\" placeholder=\"Name, city, or type\" /></label>",
+      "css": ".ds-field-wrap { display: grid; gap: 6px; font-family: Figtree, 'Segoe UI', system-ui, sans-serif; } .ds-field-label { font-size: 0.75rem; font-weight: 600; color: var(--ink-2); } .ds-field { height: 32px; padding: 0 10px; background: var(--surface); border: 1px solid var(--line-strong); border-radius: var(--radius-md); font: 400 0.8125rem/1.2rem Figtree, 'Segoe UI', system-ui, sans-serif; color: var(--ink); transition: border-color var(--dur-fast), box-shadow var(--dur-fast); } .ds-field::placeholder { color: var(--ink-3); } .ds-field:hover { border-color: var(--c-slate-400); } .ds-field:focus-visible { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-tint); } .ds-field[aria-invalid=\"true\"] { border-color: var(--neg-ink); box-shadow: 0 0 0 3px var(--neg-tint); }"
+    },
+    {
+      "name": "Segmented Control",
+      "kind": "chip",
+      "refersTo": "segmented-track",
+      "description": "The reference's toggle: sunk track, white thumb, bold uppercase tracked labels. The only uppercase in the system.",
+      "html": "<div class=\"ds-seg\" role=\"radiogroup\" aria-label=\"Measure\"><button class=\"ds-seg-opt\" role=\"radio\" aria-checked=\"true\">N. of deal</button><button class=\"ds-seg-opt\" role=\"radio\" aria-checked=\"false\">Value</button></div>",
+      "css": ".ds-seg { display: inline-flex; padding: 3px; border-radius: var(--radius-md); background: var(--surface-sunk); } .ds-seg-opt { height: 28px; padding: 0 14px; border: 0; border-radius: var(--radius-sm); background: transparent; color: var(--ink-3); font: 700 0.6875rem/1rem Figtree, 'Segoe UI', system-ui, sans-serif; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; transition: background-color var(--dur-fast), color var(--dur-fast), box-shadow var(--dur-fast); } .ds-seg-opt:hover { color: var(--ink); } .ds-seg-opt[aria-checked=\"true\"] { background: var(--surface); color: var(--accent-ink); box-shadow: var(--shadow-thumb); } .ds-seg-opt:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }"
+    },
+    {
+      "name": "Sidebar Navigation",
+      "kind": "nav",
+      "refersTo": "nav-item-active",
+      "description": "40px items, 18px line icons; active is the Cobalt Tint pill with Cobalt Ink.",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-nav-item\" aria-current=\"page\" href=\"#\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.25\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"3\" y=\"3\" width=\"7\" height=\"9\" rx=\"1\"/><rect x=\"14\" y=\"3\" width=\"7\" height=\"5\" rx=\"1\"/><rect x=\"14\" y=\"12\" width=\"7\" height=\"9\" rx=\"1\"/><rect x=\"3\" y=\"16\" width=\"7\" height=\"5\" rx=\"1\"/></svg>Dashboard</a><a class=\"ds-nav-item\" href=\"#\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M20 7h-9\"/><path d=\"M14 17H5\"/><circle cx=\"17\" cy=\"17\" r=\"3\"/><circle cx=\"7\" cy=\"7\" r=\"3\"/></svg>Settings</a></nav>",
+      "css": ".ds-nav { display: grid; gap: 2px; width: 208px; padding: 16px 12px; background: var(--surface); } .ds-nav-item { display: flex; align-items: center; gap: 12px; height: 40px; padding: 0 12px; border-radius: var(--radius-md); color: var(--ink-2); font: 600 0.8125rem/1.2rem Figtree, 'Segoe UI', system-ui, sans-serif; text-decoration: none; transition: background-color var(--dur-fast), color var(--dur-fast); } .ds-nav-item svg { color: var(--ink-3); flex-shrink: 0; } .ds-nav-item:hover { background: var(--surface-sunk); color: var(--ink); } .ds-nav-item[aria-current=\"page\"] { background: var(--accent-tint); color: var(--accent-ink); } .ds-nav-item[aria-current=\"page\"] svg { color: var(--accent-ink); } .ds-nav-item:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }"
+    },
+    {
+      "name": "Status Badge",
+      "kind": "chip",
+      "refersTo": "badge-pos",
+      "description": "Tone tint ground, tone ink text, a dot; always carries a word.",
+      "html": "<div class=\"ds-badges\"><span class=\"ds-badge ds-badge-pos\"><i></i>On schedule</span><span class=\"ds-badge ds-badge-warn\"><i></i>Pending</span><span class=\"ds-badge ds-badge-neg\"><i></i>17 wks late</span><span class=\"ds-chip\">+0.2%</span></div>",
+      "css": ".ds-badges { display: flex; gap: 8px; align-items: center; } .ds-badge { display: inline-flex; align-items: center; gap: 6px; height: 22px; padding: 0 8px; border-radius: var(--radius-sm); font: 600 0.75rem/1.05rem Figtree, 'Segoe UI', system-ui, sans-serif; white-space: nowrap; } .ds-badge i { width: 6px; height: 6px; border-radius: 9999px; } .ds-badge-pos { background: var(--pos-tint); color: var(--pos-ink); } .ds-badge-pos i { background: var(--pos); } .ds-badge-warn { background: var(--warn-tint); color: var(--warn-ink); } .ds-badge-warn i { background: var(--warn); } .ds-badge-neg { background: var(--neg-tint); color: var(--neg-ink); } .ds-badge-neg i { background: var(--neg); } .ds-chip { display: inline-flex; padding: 1px 6px; border-radius: var(--radius-xs); background: var(--pos-tint); color: var(--pos-ink); font: 700 0.6875rem/1rem Figtree, 'Segoe UI', system-ui, sans-serif; font-variant-numeric: tabular-nums; }"
+    },
+    {
+      "name": "KPI Strip",
+      "kind": "custom",
+      "refersTo": "kpi-cell",
+      "description": "One panel, hairline-separated cells; each cell: series dot + label, tabular figure, sub line.",
+      "html": "<section class=\"ds-kpi\" aria-label=\"Key figures\"><div class=\"ds-kpi-cell\"><div class=\"ds-kpi-label\"><i style=\"background: var(--c-navy-500)\"></i>Total asset value</div><div class=\"ds-kpi-value\">$2.95B</div><div class=\"ds-kpi-sub\">14 properties</div></div><div class=\"ds-kpi-cell\"><div class=\"ds-kpi-label\"><i style=\"background: var(--c-cobalt-500)\"></i>Active square footage</div><div class=\"ds-kpi-value\">3.53M sf</div><div class=\"ds-kpi-sub\">Gross, 12 buildings</div></div><div class=\"ds-kpi-cell\"><div class=\"ds-kpi-label\"><i style=\"background: var(--c-teal-500)\"></i>Leased</div><div class=\"ds-kpi-value\">70.1%</div><div class=\"ds-kpi-sub\">of 648,200 rentable sf</div></div></section>",
+      "css": ".ds-kpi { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); overflow: hidden; background: var(--surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-panel); border: var(--panel-border); font-family: Figtree, 'Segoe UI', system-ui, sans-serif; } .ds-kpi-cell { padding: 16px 20px; min-width: 0; } .ds-kpi-cell + .ds-kpi-cell { border-left: 1px solid var(--line-soft); } .ds-kpi-label { display: flex; align-items: center; gap: 8px; font-size: 0.75rem; line-height: 1.05rem; color: var(--ink-3); } .ds-kpi-label i { width: 8px; height: 8px; border-radius: 9999px; flex-shrink: 0; } .ds-kpi-value { margin-top: 4px; font-size: 1.625rem; line-height: 2.25rem; font-weight: 600; letter-spacing: -0.02em; color: var(--ink); font-variant-numeric: tabular-nums; } .ds-kpi-sub { margin-top: 2px; font-size: 0.75rem; color: var(--ink-2); }"
+    },
+    {
+      "name": "Narrative Sentence",
+      "kind": "custom",
+      "refersTo": "narrative",
+      "description": "The signature: plain language stating exposure, figures bold in Cobalt, Coral, or Teal Ink.",
+      "html": "<div class=\"ds-narr-panel\"><p class=\"ds-narr\">Ten active projects carry <strong class=\"ds-em\">$146M</strong> of approved capital, <strong class=\"ds-em\">50%</strong> committed. <strong class=\"ds-em ds-em-neg\">4 projects</strong> are off their baseline schedule, and the program forecasts <strong class=\"ds-em ds-em-pos\">$1.8M under budget</strong>.</p></div>",
+      "css": ".ds-narr-panel { padding: 20px; background: var(--surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-panel); border: var(--panel-border); } .ds-narr { margin: 0; max-width: 68ch; font: 400 1.0625rem/2rem Figtree, 'Segoe UI', system-ui, sans-serif; color: var(--ink); text-wrap: pretty; } .ds-em { font-weight: 700; color: var(--accent-ink); font-variant-numeric: tabular-nums; } .ds-em-neg { color: var(--neg-ink); } .ds-em-pos { color: var(--pos-ink); }"
+    },
+    {
+      "name": "Data Bar",
+      "kind": "custom",
+      "refersTo": "panel",
+      "description": "Flat saturated bar, 3px corners, grows from the left; figure inside when roomy, beside when not. Light fills take ink figures; white figures only on navy or Working Cobalt.",
+      "html": "<ul class=\"ds-bars\"><li><span class=\"ds-bar-name\">Original budget</span><span class=\"ds-bar-track\"><span class=\"ds-bar\" style=\"width: 88%; background: var(--c-navy-500)\"><b>$152M</b></span></span></li><li><span class=\"ds-bar-name\">Total approved</span><span class=\"ds-bar-track\"><span class=\"ds-bar\" style=\"width: 100%; background: var(--c-cobalt-600)\"><b>$146M</b></span></span></li><li><span class=\"ds-bar-name\">Payments to date</span><span class=\"ds-bar-track\"><span class=\"ds-bar ds-bar-light\" style=\"width: 46%; background: var(--c-teal-500)\"><b>$67M</b></span></span></li><li><span class=\"ds-bar-name\">Federal Way Care</span><span class=\"ds-bar-track\"><span class=\"ds-bar\" style=\"width: 8%; background: var(--c-coral-500)\"></span><b class=\"ds-bar-out\">($1.1M)</b></span></li></ul>",
+      "css": ".ds-bars { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; width: 420px; font-family: Figtree, 'Segoe UI', system-ui, sans-serif; } .ds-bars li { display: grid; grid-template-columns: 8.5rem minmax(0, 1fr); gap: 12px; align-items: center; } .ds-bar-name { font-size: 0.8125rem; color: var(--ink); } .ds-bar-track { display: flex; align-items: center; height: 24px; } .ds-bar { display: flex; align-items: center; height: 100%; padding: 0 8px; border-radius: var(--radius-xs); transform-origin: left; animation: ds-grow var(--dur-slow) var(--ease-out); } .ds-bar b { font-size: 0.6875rem; font-weight: 700; color: #fff; font-variant-numeric: tabular-nums; } .ds-bar-light b { color: var(--ink); } .ds-bar-out { margin-left: 8px; font-size: 0.6875rem; font-weight: 700; color: var(--ink-2); font-variant-numeric: tabular-nums; } @keyframes ds-grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Capital Control Room, in Daylight",
+    "overview": "Control Center is an Owner-side instrument for following a capital dollar, and the visual system exists to make one number unmistakable inside a dense screen. The world was pinned by the user's reference captures, not invented: a light, airy analytics dashboard with white panels floating on a pale blue-white canvas, cobalt as the primary data ink, and a small categorical family (navy, sky, teal, amber, coral) that carries the data. Every token was pixel-sampled from those captures. Where a sampled value has to carry text, it was darkened only as far as WCAG 2.2 AA requires, and the data fills keep the sampled hue.\n\nThe density is high but calm. Hierarchy comes from weight, size, and cobalt figures, not from boxes, rules, or saturated chrome. The chrome stays neutral and cool so the data colors are the only saturated thing on screen. Panels are borderless white planes with a whisper of shadow. Inside a panel, structure comes from titles and hairlines, never from another bordered box. The signature device is the narrative sentence: plain language that states the exposure, with the figures set in bold cobalt, coral, or teal, so an executive can read the status before touching a chart.\n\nThe system is light-only because of where it is used (desk reviews on large monitors, laptops in the field). Accessibility is part of the token layer, not an afterthought: high contrast and text scale are <html> data attributes that rewrite the semantic tokens before first paint, and status is never carried by color alone. It rejects the contractor-side PM tool look: RFI/submittal-first layouts and gray enterprise grids.",
+    "keyCharacteristics": [
+      "White borderless panels (10px radius, two-layer whisper shadow) on a pale blue-white canvas.",
+      "Cobalt as data ink; a darker cobalt for anything interactive or text-bearing.",
+      "Figtree at every level, with tabular figures on every number.",
+      "The narrative sentence with bold colored figures is the signature.",
+      "Uppercase text appears only in segmented toggles.",
+      "Tailwind's default palette is cleared, so project tokens are the only colors that exist."
+    ],
+    "rules": [
+      { "name": "The Two Cobalts Rule", "body": "Reference Cobalt fills data. Working Cobalt and Cobalt Ink carry text and interaction. A cobalt that a user has to read or click is never the sampled #3681e6.", "section": "colors" },
+      { "name": "The Closed Palette Rule", "body": "Tailwind's default palette is cleared (`--color-*: initial`). A color that is not a project token cannot be written. New hues enter through `tokens.css` or not at all.", "section": "colors" },
+      { "name": "The Text Plus Color Rule", "body": "Status is always a word plus a color: a badge with a dot and a label, \"project at risk\" beside a ringed pin, parenthesized negatives beside a coral bar. Color alone never carries meaning.", "section": "colors" },
+      { "name": "The Tabular Rule", "body": "Every number that can sit beside another number uses tabular figures, whether in a table cell, KPI, chip, bar label, or narrative figure.", "section": "typography" },
+      { "name": "The Metadata Below Rule", "body": "Metadata sits under its heading as a smaller Ink 3 line (\"14 properties across the Puget Sound region · as of Sep 14, 2026\"), never above it. Nothing labels a heading from above.", "section": "typography" },
+      { "name": "The One Uppercase Rule", "body": "Uppercase with tracking is reserved for segmented-control options, as the reference shows (\"N. OF DEAL | VALUE\"). Headings, labels, and column heads stay in sentence case.", "section": "typography" },
+      { "name": "The Scroll Edge Rule", "body": "Every horizontal scroller (tables, tab rows, route tabs) shows an edge shadow only while content hides past that edge. The shadow is built from local and scroll background layers, and the ground color is inherited from the container.", "section": "layout" },
+      { "name": "The Whisper Rule", "body": "Shadows are tinted navy-black at low alpha and have negative spread. If a shadow reads as a shape of its own, it is too strong.", "section": "elevation" },
+      { "name": "The No Nested Boxes Rule", "body": "A panel never contains another bordered or shadowed box. Subsections inside a panel use a small title plus a hairline (`border-t` Line), and panels are never nested.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do build every surface as white 10px panels with the Panel shadow on the Daylight Canvas, spaced 20px apart.",
+      "Do use Reference Cobalt (#3681e6) for data fills and Working Cobalt (#2468cc) or Cobalt Ink (#1f5bb3) for anything a user reads or clicks.",
+      "Do put a text-bearing ink sibling on every tinted status ground (teal, coral, and amber inks on their tints). Keep every such pair at 4.5:1 or better.",
+      "Do set every figure in tabular numerals, and make the most important number on a screen the largest type on it.",
+      "Do lead exposure-driven pages with the narrative sentence, with bold figures in Cobalt, Coral, or Teal Ink.",
+      "Do render KPI groups as one KPI strip panel with hairline-separated cells and an 8px series dot.",
+      "Do put metadata beneath headings as a smaller Ink 3 line.",
+      "Do pair every status color with a word, whether in a badge label, a \"project at risk\" note, or a parenthesized negative.",
+      "Do give every horizontal scroller scroll-edge shadows.",
+      "Do read every size and color from tokens, so the high-contrast and text-scale attributes on `<html>` keep working."
+    ],
+    "donts": [
+      "Don't nest a bordered or shadowed box inside a panel. Use a small title and a hairline.",
+      "Don't write a color outside `tokens.css`. The Tailwind default palette does not exist here.",
+      "Don't set text in Reference Cobalt or in the raw series fills. Use the ink siblings.",
+      "Don't print white figures inside a Reference Cobalt bar at micro size. White on #3681e6 measures about 3.9:1, below AA for 11–12px text. Put in-bar figures on Navy or Working Cobalt fills, or print them beside the bar.",
+      "Don't use uppercase or letter-spaced labels anywhere except segmented options, and don't place a label line above a heading.",
+      "Don't use Ink 4 for text a user must read. It is for disabled glyphs and zero-dashes.",
+      "Don't add a dark theme. The system is light-only by design.",
+      "Don't build the contractor-side PM look: RFI/submittal-first layouts, gray enterprise grids, dense bordered tables inside bordered cards."
+    ]
+  }
+}
