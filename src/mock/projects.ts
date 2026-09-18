@@ -194,6 +194,7 @@ export const PROJECTS: Project[] = [
       { kind: "firm", refId: "c-alderline", role: "General contractor" },
       { kind: "firm", refId: "c-orca", role: "Imaging vendor" },
       { kind: "firm", refId: "c-meridian-eq", role: "Equipment planner" },
+      { kind: "firm", refId: "c-tessellate", role: "Architect" },
     ],
     safety: { hoursWorked: 3_100, recordables: 0, nearMisses: 1, daysSinceIncident: 198 },
   },

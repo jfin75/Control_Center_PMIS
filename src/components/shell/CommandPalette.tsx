@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useId, useMemo, useRef, useState, type ReactNode } from "react";
-import { Building2, CornerDownLeft, FileText, FolderKanban, Gavel, Hash, Lightbulb, Search, Users } from "lucide-react";
+import { Building2, CornerDownLeft, FileCheck2, FileText, FolderKanban, Gavel, Hash, Lightbulb, Search, Users } from "lucide-react";
 import { Modal } from "@/components/ui/overlay";
 import { cx } from "@/lib/format";
 import { search, SEARCH_INDEX, type SearchHit, type SearchKind } from "@/lib/search";
@@ -15,9 +15,10 @@ const KIND_ICON: Record<SearchKind, ReactNode> = {
   Contractor: <Users className="size-4" aria-hidden />,
   "Bid package": <Gavel className="size-4" aria-hidden />,
   "Planning request": <Lightbulb className="size-4" aria-hidden />,
+  Submittal: <FileCheck2 className="size-4" aria-hidden />,
 };
 
-const KIND_ORDER: SearchKind[] = ["Page", "Project", "Property", "Cost code", "Contractor", "Bid package", "Planning request"];
+const KIND_ORDER: SearchKind[] = ["Page", "Project", "Property", "Cost code", "Contractor", "Bid package", "Planning request", "Submittal"];
 
 const SUGGESTED = ["page-/portfolio/", "page-/cost/", "page-/cost/cash-flow/", "proj-ehs-ed", "prop-hmc-tacoma", "code-3.03", "firm-c-graystone"];
 
