@@ -4,11 +4,12 @@ import { PROJECTS } from "@/mock/projects";
 import { PROPERTIES } from "@/mock/properties";
 import { BID_PACKAGES } from "@/mock/bidding";
 import { PIPELINE } from "@/mock/planning";
+import { RFIS, rfiNumber } from "@/mock/rfis";
 import { SUBMITTALS } from "@/mock/submittals";
 import { fuzzyMatch } from "./fuzzy";
 import { NAV } from "./nav";
 
-export type SearchKind = "Page" | "Property" | "Project" | "Cost code" | "Contractor" | "Bid package" | "Planning request" | "Submittal";
+export type SearchKind = "Page" | "Property" | "Project" | "Cost code" | "Contractor" | "Bid package" | "Planning request" | "Submittal" | "RFI";
 
 export interface SearchItem {
   id: string;
@@ -78,6 +79,17 @@ export const SEARCH_INDEX: SearchItem[] = [
       meta: `${p.code} · ${s.sectionTitle}`,
       href: `/submittals/?project=${p.id}&tab=register&item=${encodeURIComponent(s.id)}`,
       keywords: `${s.type} submittal`,
+    };
+  }),
+  ...RFIS.filter((r) => r.status !== "void").map((r) => {
+    const p = PROJECTS.find((x) => x.id === r.projectId)!;
+    return {
+      id: `rfi-${r.id}`,
+      kind: "RFI" as const,
+      title: `${rfiNumber(r)} ${r.subject}`,
+      meta: `${p.code} · ${r.discipline}`,
+      href: `/rfis/?project=${p.id}&tab=log&rfi=${encodeURIComponent(r.id)}`,
+      keywords: `rfi request for information ${r.drawing ?? ""} ${r.section ?? ""} ${r.changeRef ?? ""}`,
     };
   }),
 ];

@@ -1,6 +1,6 @@
 # Control Center
 
-An Owner-focused PMIS for a capital program: Portfolio, Dashboard, Planning, Projects, Workload, Bidding, Submittals, Cost, Reports, Time Tracking, and Settings. It's one static Next.js build that ships to **Vercel** and runs as a **Tauri** desktop app on macOS and Windows.
+An Owner-focused PMIS for a capital program: Portfolio, Dashboard, Planning, Projects, Workload, Bidding, Submittals, RFIs, Cost, Reports, Time Tracking, and Settings. It's one static Next.js build that ships to **Vercel** and runs as a **Tauri** desktop app on macOS and Windows.
 
 > **All data in `src/mock/` is synthetic.** Harborline Health, its properties, people, contractors, and dollars are made up. The budget structure (Level 1 classifications, cost codes 1.01–9.01, change classifiers, and the A–K formula chain) comes from the Owner's template in `Private/Budget Fortmat/`. Three projects reuse the dollar rows from the Owner's Budget Summary Report, so the rollup can be checked against it line by line.
 
