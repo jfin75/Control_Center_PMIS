@@ -58,6 +58,12 @@ export function monthLabel(iso: string): string {
   return `${MONTHS[d.getMonth()]} ’${String(d.getFullYear()).slice(2)}`;
 }
 
+export function addDays(iso: string, n: number): string {
+  const d = parseISO(iso);
+  d.setDate(d.getDate() + n);
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+}
+
 export function daysBetween(aIso: string, bIso: string): number {
   return Math.round((parseISO(bIso).getTime() - parseISO(aIso).getTime()) / 86_400_000);
 }

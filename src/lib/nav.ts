@@ -7,6 +7,7 @@ import {
   Lightbulb,
   MapPinned,
   Settings,
+  UsersRound,
   Wallet,
   type LucideIcon,
 } from "lucide-react";
@@ -25,6 +26,7 @@ export const NAV: NavItem[] = [
   { label: "Dashboard", href: "/dashboard/", icon: LayoutDashboard, hint: "Executive widgets", module: "Portfolio" },
   { label: "Planning", href: "/planning/", icon: Lightbulb, hint: "Capital requests by stage gate", module: "Planning" },
   { label: "Projects", href: "/projects/", icon: FolderKanban, hint: "Active capital projects", module: "Projects" },
+  { label: "Workload", href: "/workload/", icon: UsersRound, hint: "PM capacity and project assignments", module: "Projects" },
   { label: "Bidding", href: "/bidding/", icon: Gavel, hint: "Packages, leveling, awards", module: "Bidding" },
   {
     label: "Cost",
