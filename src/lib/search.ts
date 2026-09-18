@@ -4,10 +4,11 @@ import { PROJECTS } from "@/mock/projects";
 import { PROPERTIES } from "@/mock/properties";
 import { BID_PACKAGES } from "@/mock/bidding";
 import { PIPELINE } from "@/mock/planning";
+import { SUBMITTALS } from "@/mock/submittals";
 import { fuzzyMatch } from "./fuzzy";
 import { NAV } from "./nav";
 
-export type SearchKind = "Page" | "Property" | "Project" | "Cost code" | "Contractor" | "Bid package" | "Planning request";
+export type SearchKind = "Page" | "Property" | "Project" | "Cost code" | "Contractor" | "Bid package" | "Planning request" | "Submittal";
 
 export interface SearchItem {
   id: string;
@@ -67,6 +68,18 @@ export const SEARCH_INDEX: SearchItem[] = [
     meta: `${i.stage} · ${i.department}`,
     href: `/planning/?item=${i.id}`,
   })),
+  ...SUBMITTALS.map((s) => {
+    const p = PROJECTS.find((x) => x.id === s.projectId)!;
+    const n = `${s.section}-${String(s.seq).padStart(2, "0")}`;
+    return {
+      id: `sub-${s.id}`,
+      kind: "Submittal" as const,
+      title: `${n} ${s.title}`,
+      meta: `${p.code} · ${s.sectionTitle}`,
+      href: `/submittals/?project=${p.id}&tab=register&item=${encodeURIComponent(s.id)}`,
+      keywords: `${s.type} submittal`,
+    };
+  }),
 ];
 
 export interface SearchHit extends SearchItem {
