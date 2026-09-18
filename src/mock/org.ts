@@ -45,6 +45,7 @@ export const PEOPLE: Person[] = [
   { id: "u-haddad", name: "Layla Haddad", title: "Project Manager", role: "PM", email: "l.haddad@harborline.example", phone: "(425) 555-0164", tone: 4 },
   { id: "u-novak", name: "Peter Novak", title: "Senior Project Manager", role: "PM", email: "p.novak@harborline.example", phone: "(253) 555-0188", tone: 5 },
   { id: "u-mensah", name: "Kwame Mensah", title: "Owner's Representative", role: "PM", email: "k.mensah@harborline.example", phone: "(360) 555-0125", tone: 6 },
+  { id: "u-farah", name: "Noor Farah", title: "Associate Project Manager", role: "PM", email: "n.farah@harborline.example", phone: "(253) 555-0129", tone: 7 },
   { id: "u-sato", name: "Emi Sato", title: "Cost Controller", role: "Cost Controller", email: "e.sato@harborline.example", phone: "(253) 555-0133", tone: 7 },
   { id: "u-bauer", name: "Hannah Bauer", title: "Senior Cost Analyst", role: "Cost Controller", email: "h.bauer@harborline.example", phone: "(253) 555-0151", tone: 1 },
   { id: "u-whitehorse", name: "Jonah Whitehorse", title: "Field Inspector", role: "Field Inspector", email: "j.whitehorse@harborline.example", phone: "(360) 555-0192", tone: 2 },
