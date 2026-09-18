@@ -12,6 +12,7 @@ import { finishSlip, milestoneSlip } from "@/lib/selectors";
 import { contractor, person, TODAY } from "@/mock/org";
 import { SCHEDULE_STATUS, projectById, type Risk } from "@/mock/projects";
 import { propertyById } from "@/mock/properties";
+import { RFI_PROJECT_IDS } from "@/mock/rfis";
 import { REGISTER_PROJECT_IDS } from "@/mock/submittals";
 
 type Tab = "overview" | "team" | "milestones" | "risks";
@@ -57,6 +58,11 @@ export function ProjectHub({ id }: { id: string }) {
           {REGISTER_PROJECT_IDS.includes(p.id) && (
             <Link href={`/submittals/?project=${p.id}`} className="inline-flex h-8 items-center gap-1.5 rounded-md border border-line-strong bg-surface px-3 text-sm font-semibold text-ink hover:bg-surface-2">
               Submittals <ArrowUpRight className="size-3.5" aria-hidden />
+            </Link>
+          )}
+          {RFI_PROJECT_IDS.includes(p.id) && (
+            <Link href={`/rfis/?project=${p.id}`} className="inline-flex h-8 items-center gap-1.5 rounded-md border border-line-strong bg-surface px-3 text-sm font-semibold text-ink hover:bg-surface-2">
+              RFIs <ArrowUpRight className="size-3.5" aria-hidden />
             </Link>
           )}
           <Link href={`/cost/?project=${p.id}`} className="inline-flex h-8 items-center gap-1.5 rounded-md border border-line-strong bg-surface px-3 text-sm font-semibold text-ink hover:bg-surface-2">

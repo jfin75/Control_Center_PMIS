@@ -7,6 +7,7 @@ import {
   LayoutDashboard,
   Lightbulb,
   MapPinned,
+  MessageCircleQuestionMark,
   Settings,
   UsersRound,
   Wallet,
@@ -30,6 +31,7 @@ export const NAV: NavItem[] = [
   { label: "Workload", href: "/workload/", icon: UsersRound, hint: "PM capacity and project assignments", module: "Projects" },
   { label: "Bidding", href: "/bidding/", icon: Gavel, hint: "Packages, leveling, awards", module: "Bidding" },
   { label: "Submittals", href: "/submittals/", icon: FileCheck2, hint: "Register, packages, reviews, resubmittals", module: "Projects" },
+  { label: "RFIs", href: "/rfis/", icon: MessageCircleQuestionMark, hint: "Questions, answers, response times, impacts", module: "Projects" },
   {
     label: "Cost",
     href: "/cost/",
