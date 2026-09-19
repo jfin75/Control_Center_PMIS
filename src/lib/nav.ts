@@ -1,4 +1,5 @@
 import {
+  CalendarRange,
   Clock,
   FileCheck2,
   FileSignature,
@@ -29,6 +30,7 @@ export const NAV: NavItem[] = [
   { label: "Dashboard", href: "/dashboard/", icon: LayoutDashboard, hint: "Executive widgets", module: "Portfolio" },
   { label: "Planning", href: "/planning/", icon: Lightbulb, hint: "Capital requests by stage gate", module: "Planning" },
   { label: "Projects", href: "/projects/", icon: FolderKanban, hint: "Active capital projects", module: "Projects" },
+  { label: "Schedule", href: "/schedule/", icon: CalendarRange, hint: "Gantt, critical path, P6 and MS Project imports", module: "Projects" },
   { label: "Workload", href: "/workload/", icon: UsersRound, hint: "PM capacity and project assignments", module: "Projects" },
   { label: "Bidding", href: "/bidding/", icon: Gavel, hint: "Packages, leveling, awards", module: "Bidding" },
   { label: "Submittals", href: "/submittals/", icon: FileCheck2, hint: "Register, packages, reviews, resubmittals", module: "Projects" },

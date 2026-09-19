@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useId, useMemo, useRef, useState, type ReactNode } from "react";
-import { Building2, CornerDownLeft, FileCheck2, FileDiff, FileSignature, FileText, FolderKanban, Gavel, Hash, Lightbulb, MessageCircleQuestionMark, Search, Users } from "lucide-react";
+import { Building2, CalendarRange, CornerDownLeft, FileCheck2, FileDiff, FileSignature, FileText, FolderKanban, Gavel, Hash, Lightbulb, MessageCircleQuestionMark, Search, Users } from "lucide-react";
 import { Modal } from "@/components/ui/overlay";
 import { cx } from "@/lib/format";
 import { search, SEARCH_INDEX, type SearchHit, type SearchKind } from "@/lib/search";
@@ -19,9 +19,10 @@ const KIND_ICON: Record<SearchKind, ReactNode> = {
   RFI: <MessageCircleQuestionMark className="size-4" aria-hidden />,
   Contract: <FileSignature className="size-4" aria-hidden />,
   "Contract change": <FileDiff className="size-4" aria-hidden />,
+  Schedule: <CalendarRange className="size-4" aria-hidden />,
 };
 
-const KIND_ORDER: SearchKind[] = ["Page", "Project", "Property", "Cost code", "Contractor", "Bid package", "Planning request", "Submittal", "RFI", "Contract", "Contract change"];
+const KIND_ORDER: SearchKind[] = ["Page", "Project", "Property", "Cost code", "Contractor", "Bid package", "Planning request", "Submittal", "RFI", "Contract", "Contract change", "Schedule"];
 
 const SUGGESTED = ["page-/portfolio/", "page-/cost/", "page-/cost/cash-flow/", "proj-ehs-ed", "prop-hmc-tacoma", "code-3.03", "firm-c-graystone"];
 
