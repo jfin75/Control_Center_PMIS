@@ -93,6 +93,7 @@ export const CONTRACTORS: Contractor[] = [
   { id: "c-cedarmark", name: "Cedarmark Commissioning", trade: "Commissioning authority", kind: "Consultant", city: "Seattle", prequalified: true, emr: 0 },
   { id: "c-meridian-eq", name: "Lumenfield Equipment Planning", trade: "Medical equipment planning", kind: "Consultant", city: "Portland", prequalified: true, emr: 0 },
   { id: "c-orca", name: "Orcaline Imaging Systems", trade: "Imaging equipment", kind: "Vendor", city: "Bothell", prequalified: true, emr: 0 },
+  { id: "c-cascade", name: "Cascade Contract Furniture", trade: "Furniture dealer", kind: "Vendor", city: "Kent", prequalified: true, emr: 0 },
   { id: "c-quartermile", name: "Quartermile Cost Consultants", trade: "Cost estimating", kind: "Consultant", city: "Seattle", prequalified: true, emr: 0 },
 ];
 

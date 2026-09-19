@@ -1,6 +1,7 @@
 import {
   Clock,
   FileCheck2,
+  FileSignature,
   FileChartColumn,
   FolderKanban,
   Gavel,
@@ -32,6 +33,7 @@ export const NAV: NavItem[] = [
   { label: "Bidding", href: "/bidding/", icon: Gavel, hint: "Packages, leveling, awards", module: "Bidding" },
   { label: "Submittals", href: "/submittals/", icon: FileCheck2, hint: "Register, packages, reviews, resubmittals", module: "Projects" },
   { label: "RFIs", href: "/rfis/", icon: MessageCircleQuestionMark, hint: "Questions, answers, response times, impacts", module: "Projects" },
+  { label: "Contracts", href: "/contracts/", icon: FileSignature, hint: "Templates, agreements, task orders, change orders", module: "Projects" },
   {
     label: "Cost",
     href: "/cost/",

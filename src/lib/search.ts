@@ -3,13 +3,14 @@ import { CONTRACTORS } from "@/mock/org";
 import { PROJECTS } from "@/mock/projects";
 import { PROPERTIES } from "@/mock/properties";
 import { BID_PACKAGES } from "@/mock/bidding";
+import { CONTRACTS, MOD_TYPES, MODS, modNumber, templateById } from "@/mock/contracts";
 import { PIPELINE } from "@/mock/planning";
 import { RFIS, rfiNumber } from "@/mock/rfis";
 import { SUBMITTALS } from "@/mock/submittals";
 import { fuzzyMatch } from "./fuzzy";
 import { NAV } from "./nav";
 
-export type SearchKind = "Page" | "Property" | "Project" | "Cost code" | "Contractor" | "Bid package" | "Planning request" | "Submittal" | "RFI";
+export type SearchKind = "Page" | "Property" | "Project" | "Cost code" | "Contractor" | "Bid package" | "Planning request" | "Submittal" | "RFI" | "Contract" | "Contract change";
 
 export interface SearchItem {
   id: string;
@@ -90,6 +91,30 @@ export const SEARCH_INDEX: SearchItem[] = [
       meta: `${p.code} · ${r.discipline}`,
       href: `/rfis/?project=${p.id}&tab=log&rfi=${encodeURIComponent(r.id)}`,
       keywords: `rfi request for information ${r.drawing ?? ""} ${r.section ?? ""} ${r.changeRef ?? ""}`,
+    };
+  }),
+  ...CONTRACTS.map((c) => {
+    const p = c.projectId ? PROJECTS.find((x) => x.id === c.projectId) : null;
+    const firm = CONTRACTORS.find((x) => x.id === c.counterpartyId);
+    return {
+      id: `contract-${c.id}`,
+      kind: "Contract" as const,
+      title: `${c.number} ${c.title}`,
+      meta: `${p ? p.code : "Program master"} · ${firm?.name ?? ""}`,
+      href: `/contracts/?contract=${encodeURIComponent(c.id)}`,
+      keywords: `contract agreement ${templateById(c.templateId)?.name ?? ""}`,
+    };
+  }),
+  ...MODS.filter((m) => m.status !== "draft").map((m) => {
+    const c = CONTRACTS.find((x) => x.id === m.contractId)!;
+    const p = c.projectId ? PROJECTS.find((x) => x.id === c.projectId) : null;
+    return {
+      id: `mod-${m.id}`,
+      kind: "Contract change" as const,
+      title: `${modNumber(m)} ${m.title}`,
+      meta: `${c.number}${p ? ` · ${p.code}` : ""} · ${MOD_TYPES[m.type].label}`,
+      href: `/contracts/?tab=changes&mod=${encodeURIComponent(m.id)}`,
+      keywords: `${MOD_TYPES[m.type].label} ${m.ref ?? ""}`,
     };
   }),
 ];
