@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Archive, CircleCheck, FilePen, FilePlus2, GitPullRequestArrow, Link2, PenLine, Send, Trash2, Undo2 } from "lucide-react";
+import { Archive, Ban, CircleCheck, FilePen, FilePlus2, GitPullRequestArrow, Link2, PenLine, RefreshCw, Send, Trash2, Undo2 } from "lucide-react";
 import { AttachmentList } from "@/components/rfis/files";
 import { Badge } from "@/components/ui/data";
 import { Button, IconButton, Tabs } from "@/components/ui/controls";
@@ -15,13 +15,18 @@ import { codeLabel, ORDER_NAME, orderTemplateFor, type LogEntry } from "@/mock/c
 import { TODAY } from "@/mock/org";
 import { ActionDialog, type ActionSpec } from "./ActionDialog";
 import { DocPreview, DownloadDocButton, exhibitLetter, exhibitStatus } from "./Document";
+import { SignatureDialog } from "./SignatureDialog";
+import { EnvelopeStrip, SigningPanel, useEnvelope } from "./Signing";
 import { kindLabel, MiniFact, ModAmount, ModStatusBadge, ModTypeTag, plural, shortDate, StatusBadge, SubHead } from "./parts";
 import { useContracts, type DetailTab } from "./state";
 
 export function ContractDetail({ r, tab, onTab, onClose }: { r: Row; tab: DetailTab; onTab: (t: DetailTab) => void; onClose: () => void }) {
   const { contracts, saveContracts, removeContract, startContract, startMod, openContract, me } = useContracts();
   const [action, setAction] = useState<ActionSpec | null>(null);
+  const [sending, setSending] = useState(false);
+  const envelope = useEnvelope(r);
   const c = r.c;
+  const live = c.esign?.status === "SENT";
   const master = r.t.structure === "master";
   const order = ORDER_NAME[r.t.category].name;
 
@@ -77,7 +82,7 @@ export function ContractDetail({ r, tab, onTab, onClose }: { r: Row; tab: Detail
       case "review":
         return (
           <>
-            <Button size="sm" variant="primary" icon={<FilePen className="size-3.5" aria-hidden />} onClick={() => setAction({ title: `Send ${c.number} for signature`, description: "Legal & Risk has approved the terms. Both signers get the executed-ready document.", confirm: "Send for signature", note: "optional", onConfirm: move("signature", `${c.number} sent for signature`) })}>
+            <Button size="sm" variant="primary" icon={<FilePen className="size-3.5" aria-hidden />} onClick={() => setSending(true)}>
               Legal approved · send for signature
             </Button>
             <Button size="sm" icon={<Undo2 className="size-3.5" aria-hidden />} onClick={() => setAction({ title: `Return ${c.number} to draft`, confirm: "Return to draft", note: "required", notePlaceholder: "What needs to change", onConfirm: move("draft", `${c.number} returned to draft`) })}>
@@ -86,15 +91,52 @@ export function ContractDetail({ r, tab, onTab, onClose }: { r: Row; tab: Detail
           </>
         );
       case "signature":
+        if (live)
+          return (
+            <>
+              <Button size="sm" icon={<RefreshCw className={cx("size-3.5", envelope.busy === "refresh" && "animate-spin")} aria-hidden />} disabled={!!envelope.busy} onClick={() => void envelope.refresh()}>
+                Refresh signatures
+              </Button>
+              <Button
+                size="sm"
+                icon={<Ban className="size-3.5" aria-hidden />}
+                disabled={!!envelope.busy}
+                onClick={() =>
+                  setAction({
+                    title: `Void the SignVault envelope for ${c.number}`,
+                    description: "Every outstanding signing link stops working, and SignVault records why. The contract goes back to Legal review so it can be corrected and resent.",
+                    confirm: "Void envelope",
+                    danger: true,
+                    note: "required",
+                    notePlaceholder: "Why signing is stopping",
+                    onConfirm: (v) => void envelope.voidIt(v.note, "review"),
+                  })
+                }
+              >
+                Void envelope
+              </Button>
+              <Button
+                size="sm"
+                icon={<Undo2 className="size-3.5" aria-hidden />}
+                disabled={!!envelope.busy}
+                onClick={() => setAction({ title: `Return ${c.number} to draft`, description: "The SignVault envelope is voided first, so no one can keep signing the old version.", confirm: "Void and return to draft", note: "required", notePlaceholder: "What needs to change", onConfirm: (v) => void envelope.voidIt(v.note, "draft") })}
+              >
+                Return to draft
+              </Button>
+            </>
+          );
         return (
           <>
+            <Button size="sm" variant="primary" icon={<Send className="size-3.5" aria-hidden />} onClick={() => setSending(true)}>
+              Send through SignVault
+            </Button>
             <Button
               size="sm"
               variant="primary"
               icon={<CircleCheck className="size-3.5" aria-hidden />}
-              onClick={() => setAction({ title: `Record execution of ${c.number}`, description: `Both parties have signed. The contract takes effect and ${money(r.current)} posts to ${c.code} commitments.`, confirm: "Record execution", date: TODAY, note: "optional", onConfirm: move("executed", `${c.number} executed`) })}
+              onClick={() => setAction({ title: `Record execution of ${c.number}`, description: `Both parties signed outside SignVault. The contract takes effect and ${money(r.current)} posts to ${c.code} commitments.`, confirm: "Record execution", date: TODAY, note: "optional", onConfirm: move("executed", `${c.number} executed`) })}
             >
-              Record execution
+              Record wet-ink execution
             </Button>
             <Button size="sm" icon={<Undo2 className="size-3.5" aria-hidden />} onClick={() => setAction({ title: `Return ${c.number} to draft`, confirm: "Return to draft", note: "required", notePlaceholder: "Why signature stopped", onConfirm: move("draft", `${c.number} returned to draft`) })}>
               Return to draft
@@ -178,6 +220,7 @@ export function ContractDetail({ r, tab, onTab, onClose }: { r: Row; tab: Detail
           {c.status === "draft" && r.missing.length > 0 && <Badge tone="warn">{plural(r.missing.length, "item")} to fill</Badge>}
           {openMods.length > 0 && <Badge tone="warn">{plural(openMods.length, "open change")}</Badge>}
         </div>
+        {c.status === "signature" && <EnvelopeStrip ctl={envelope} onOpen={() => onTab("signing")} />}
         <dl className="mt-3 grid grid-cols-2 gap-x-6 gap-y-2 sm:grid-cols-4">
           {master ? (
             <>
@@ -229,6 +272,7 @@ export function ContractDetail({ r, tab, onTab, onClose }: { r: Row; tab: Detail
             { value: "document", label: "Document" },
             { value: "exhibits", label: `Exhibits · ${r.t.exhibits.length}` },
             { value: "changes", label: `Changes · ${r.mods.length}` },
+            ...(c.esign ? [{ value: "signing" as const, label: "Signatures" }] : []),
             { value: "history", label: "History" },
           ]}
         />
@@ -243,10 +287,12 @@ export function ContractDetail({ r, tab, onTab, onClose }: { r: Row; tab: Detail
         )}
         {tab === "exhibits" && <Exhibits r={r} />}
         {tab === "changes" && <Changes r={r} />}
+        {tab === "signing" && <SigningPanel ctl={envelope} />}
         {tab === "history" && <History key={c.log.length} r={r} />}
       </div>
 
       <ActionDialog spec={action} onClose={() => setAction(null)} />
+      <SignatureDialog r={r} open={sending} onClose={() => setSending(false)} onSent={() => onTab("signing")} />
     </>
   );
 }
@@ -426,6 +472,7 @@ export const LOG_LABEL: Record<LogEntry["kind"], string> = {
   submitted: "Submitted",
   returned: "Returned to draft",
   signature: "Sent for signature",
+  voided: "Envelope voided",
   executed: "Executed",
   closed: "Closed",
   priced: "Priced",

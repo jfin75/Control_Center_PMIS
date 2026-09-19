@@ -1,7 +1,7 @@
 "use client";
 
 import { useId, useState, type ReactNode } from "react";
-import { ChevronDown, Copy, FileSignature } from "lucide-react";
+import { ChevronDown, CircleAlert, CircleCheck, Copy, FileSignature, PlugZap } from "lucide-react";
 import { Badge, Chip } from "@/components/ui/data";
 import { Button, Segmented } from "@/components/ui/controls";
 import { toast } from "@/components/ui/overlay";
@@ -31,11 +31,12 @@ import {
   type ChapterId,
   type Endpoint,
   type Env,
-} from "@/lib/signvault";
+} from "@/lib/signvault/reference";
+import { transport } from "@/lib/signvault/client";
+import { target, useSignVaultConfig, type Mode } from "@/lib/signvault/config";
 import { CURRENT_USER_ID } from "@/mock/org";
 
-/** Placeholder tenant and secret until SignVault provisions the real ones. */
-const TENANT_ID = "7c1e2a90-4b3d-4f6e-9a21-5d8c0b7e3f14";
+/** Placeholder secret until SignVault provisions the real one. */
 const WEBHOOK_SECRET = "whsec_4e9b1c7a2f6d8e0b3a5c7d9f1e2b4a6c";
 
 const copy = (text: string, what: string) =>
@@ -46,16 +47,26 @@ const copy = (text: string, what: string) =>
 
 /** SignVault connection details and the full API reference, in the reference's own eight chapters. */
 export function SignVaultApi() {
-  const [env, setEnv] = useState<Env>("sandbox");
+  const [cfg, setCfg] = useSignVaultConfig();
   const [chapter, setChapter] = useState<ChapterId>("protocol");
   const [revealed, setRevealed] = useState(false);
-  const base = BASE_URLS[env].url;
+  const [test, setTest] = useState<{ state: "idle" | "testing" } | { state: "ok" | "fail"; text: string }>({ state: "idle" });
+  const env: Env = cfg.env;
+  const base = env === "sandbox" ? cfg.sandboxUrl : BASE_URLS[env].url;
+  const dest = target(cfg);
+  const runTest = () => {
+    setTest({ state: "testing" });
+    transport(dest.mode, dest.baseUrl, dest.tenantId, CURRENT_USER_ID)
+      .health()
+      .then((h) => setTest({ state: "ok", text: dest.mode === "simulated" ? "The simulated SignVault is ready in this browser." : `SignVault ${h.version} answered at ${dest.baseUrl}.` }))
+      .catch((e: unknown) => setTest({ state: "fail", text: e instanceof Error ? e.message : "No answer." }));
+  };
 
   return (
     <Panel
       id="signvault"
       title="SignVault e-signature API"
-      info="Mirrors docs/api/api-reference.md in the SignVault project. Envelopes are sent server-side; this static build doesn't call the API or hold its key."
+      info="The reference mirrors docs/api/api-reference.md in the SignVault project. Contracts call the sandbox straight from this browser; production waits for a backend to hold the API key."
       actions={<FileSignature className="size-4 text-ink-3" aria-hidden />}
     >
       <p className="max-w-[72ch] text-sm text-ink-2">
@@ -73,18 +84,78 @@ export function SignVaultApi() {
 
       <dl className="mt-4 grid grid-cols-1 gap-3 rounded-md bg-surface-2 p-4 md:grid-cols-2">
         <div className="md:col-span-2">
+          <dt className="mb-1.5 text-xs font-semibold text-ink-2">Contracts send envelopes through</dt>
+          <dd className="flex flex-wrap items-center gap-3">
+            <Segmented
+              size="sm"
+              label="Where envelopes go"
+              value={cfg.mode}
+              onChange={(m: Mode) => {
+                setCfg((x) => ({ ...x, mode: m }));
+                setTest({ state: "idle" });
+              }}
+              options={[{ value: "api", label: "SignVault API" }, { value: "simulated", label: "Simulated in this browser" }]}
+            />
+            <Button size="sm" icon={<PlugZap className="size-3.5" aria-hidden />} loading={test.state === "testing"} disabled={!!dest.blocked} onClick={runTest}>
+              Test connection
+            </Button>
+          </dd>
+          <dd className="mt-1.5 text-xs text-ink-3">
+            {cfg.mode === "simulated"
+              ? "Follows SignVault's routing and audit rules without a server, for the hosted demo and the desktop app. Nothing is digitally sealed."
+              : "Contracts create, send, track, and void real envelopes. Signers' links come back from SignVault."}
+          </dd>
+          {dest.blocked && <dd className="mt-1.5 text-xs font-medium text-warn-ink">{dest.blocked}</dd>}
+          {(test.state === "ok" || test.state === "fail") && (
+            <dd role="status" className={cx("mt-2 flex items-start gap-1.5 text-xs font-medium", test.state === "ok" ? "text-pos-ink" : "text-neg-ink")}>
+              {test.state === "ok" ? <CircleCheck className="mt-px size-3.5 shrink-0" aria-hidden /> : <CircleAlert className="mt-px size-3.5 shrink-0" aria-hidden />}
+              {test.text}
+            </dd>
+          )}
+        </div>
+        <div className="md:col-span-2">
           <dt className="mb-1.5 flex flex-wrap items-center gap-3 text-xs font-semibold text-ink-2">
             Base URL
-            <Segmented size="sm" label="Environment" value={env} onChange={setEnv} options={[{ value: "sandbox", label: "Sandbox" }, { value: "production", label: "Production" }]} />
+            <Segmented
+              size="sm"
+              label="Environment"
+              value={env}
+              onChange={(v: Env) => {
+                setCfg((x) => ({ ...x, env: v }));
+                setTest({ state: "idle" });
+              }}
+              options={[{ value: "sandbox", label: "Sandbox" }, { value: "production", label: "Production" }]}
+            />
           </dt>
           <dd>
-            <CopyLine value={base} what="Base URL" />
+            {env === "sandbox" ? (
+              <div className="flex min-w-0 items-center gap-2">
+                <label className="min-w-0 flex-1">
+                  <span className="sr-only">Sandbox base URL</span>
+                  <input
+                    className="field num h-8 w-full text-xs"
+                    value={cfg.sandboxUrl}
+                    spellCheck={false}
+                    aria-invalid={!/^https?:\/\/\S+\/api\/v\d+$/.test(cfg.sandboxUrl)}
+                    onChange={(e) => {
+                      setCfg((x) => ({ ...x, sandboxUrl: e.target.value.trim() }));
+                      setTest({ state: "idle" });
+                    }}
+                  />
+                </label>
+                <Button size="sm" variant="ghost" onClick={() => setCfg((x) => ({ ...x, sandboxUrl: BASE_URLS.sandbox.url }))}>
+                  Default
+                </Button>
+              </div>
+            ) : (
+              <CopyLine value={base} what="Base URL" />
+            )}
           </dd>
         </div>
         <div>
           <dt className="mb-1 text-xs font-semibold text-ink-2">X-Tenant-ID</dt>
           <dd>
-            <CopyLine value={TENANT_ID} what="Tenant ID" />
+            <CopyLine value={cfg.tenantId} what="Tenant ID" />
           </dd>
         </div>
         <div>

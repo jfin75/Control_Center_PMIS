@@ -8,6 +8,7 @@
  *  approved 3.03 adjustments, and each design, consultant, and vendor
  *  contract's current value is the commitment on its cost code. */
 
+import type { Esign } from "@/lib/signvault/contract";
 import { seeded } from "@/lib/budget";
 import { addDays } from "@/lib/format";
 import { costCode, type ChangeClassifier } from "./costCodes";
@@ -822,6 +823,7 @@ export type LogKind =
   | "submitted"
   | "returned"
   | "signature"
+  | "voided"
   | "executed"
   | "closed"
   | "priced"
@@ -860,6 +862,8 @@ export interface Contract {
   /** Effective (execution) date. */
   executed?: string;
   closed?: string;
+  /** The SignVault envelope that carries (or carried) it for signature. */
+  esign?: Esign;
   log: LogEntry[];
 }
 

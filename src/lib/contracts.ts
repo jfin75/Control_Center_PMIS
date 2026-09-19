@@ -30,6 +30,7 @@ import {
   type Template,
 } from "@/mock/contracts";
 import { RFIS, type Rfi, type Who } from "@/mock/rfis";
+import type { Esign } from "./signvault/contract";
 
 export type Tone = "pos" | "warn" | "neg" | "info" | "neutral" | "accent";
 
@@ -455,6 +456,37 @@ export function moveContract(c: Contract, to: ContractStatus, by: Who, text?: st
 }
 
 export const commentContract = (c: Contract, by: Who, text: string) => logged(c, "comment", by, text);
+
+/* ---- SignVault -------------------------------------------------------- */
+
+const signerList = (e: Esign) =>
+  [...e.recipients]
+    .sort((a, b) => a.routingOrder - b.routingOrder)
+    .map((r) => `${r.name} (${r.role.toLowerCase()}${e.maxRoutingOrder > 1 ? `, tier ${r.routingOrder}` : ""})`)
+    .join(", ");
+
+/** Sent through SignVault: the contract goes out for signature carrying its envelope. */
+export function sendForSignature(c: Contract, e: Esign, by: Who, note?: string): Contract {
+  const where = e.mode === "simulated" ? "the simulated SignVault" : "SignVault";
+  return { ...moveContract(c, "signature", by, [`Envelope ${e.envelopeId.slice(0, 8)} sent through ${where} to ${signerList(e)}.`, note?.trim()].filter(Boolean).join(" ")), esign: e };
+}
+
+/** Keep the contract's copy of the envelope current; completion executes the contract. */
+export function applyEnvelope(c: Contract, e: Esign, by: Who): Contract {
+  if (e.status === "COMPLETED" && c.status === "signature") {
+    const date = (e.completedAt ?? new Date().toISOString()).slice(0, 10);
+    const seal = e.mode === "simulated" ? "Simulated envelope completed; no PAdES seal applied." : `PAdES-sealed${e.finalSha256 ? `, final SHA-256 ${e.finalSha256.slice(0, 12)}…` : ""}.`;
+    return { ...moveContract(c, "executed", by, `All ${e.recipients.length} signatures completed in SignVault. ${seal}`, date), esign: e };
+  }
+  return { ...c, esign: e };
+}
+
+/** Voided in SignVault: the contract steps back so it can be fixed and resent. */
+export function voidedContract(c: Contract, e: Esign, by: Who, reason: string, to: "review" | "draft"): Contract {
+  const next: Contract = { ...c, status: to, esign: e };
+  if (to === "draft") delete next.executed;
+  return logged(next, "voided", by, `Envelope ${e.envelopeId.slice(0, 8)} voided: ${reason}. Back to ${to === "review" ? "Legal review" : "draft"}.`);
+}
 
 /* ---- Modifications ------------------------------------------------------- */
 

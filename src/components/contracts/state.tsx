@@ -6,7 +6,7 @@ import type { Contract, Mod, ModType } from "@/mock/contracts";
 import type { Who } from "@/mock/rfis";
 
 export type Tab = "register" | "changes" | "templates";
-export type DetailTab = "summary" | "document" | "exhibits" | "changes" | "history";
+export type DetailTab = "summary" | "document" | "exhibits" | "changes" | "signing" | "history";
 
 /** What the contract form opens with. */
 export interface FormStart {

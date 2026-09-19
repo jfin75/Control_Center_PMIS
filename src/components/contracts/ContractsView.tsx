@@ -25,7 +25,7 @@ import { ContractsContext, type ContractsCtl, type DetailTab, type FormStart, ty
 import { Templates } from "./Templates";
 
 const TAB_IDS: Tab[] = ["register", "changes", "templates"];
-const DETAIL_TABS: DetailTab[] = ["summary", "document", "exhibits", "changes", "history"];
+const DETAIL_TABS: DetailTab[] = ["summary", "document", "exhibits", "changes", "signing", "history"];
 
 export function ContractsView() {
   const router = useRouter();
