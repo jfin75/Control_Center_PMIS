@@ -11,6 +11,7 @@ import { cx, daysBetween, fmtDate, money, num, pct } from "@/lib/format";
 import { finishSlip, milestoneSlip } from "@/lib/selectors";
 import { contractor, person, TODAY } from "@/mock/org";
 import { SCHEDULE_STATUS, projectById, type Risk } from "@/mock/projects";
+import { CONTRACTS } from "@/mock/contracts";
 import { propertyById } from "@/mock/properties";
 import { RFI_PROJECT_IDS } from "@/mock/rfis";
 import { REGISTER_PROJECT_IDS } from "@/mock/submittals";
@@ -63,6 +64,11 @@ export function ProjectHub({ id }: { id: string }) {
           {RFI_PROJECT_IDS.includes(p.id) && (
             <Link href={`/rfis/?project=${p.id}`} className="inline-flex h-8 items-center gap-1.5 rounded-md border border-line-strong bg-surface px-3 text-sm font-semibold text-ink hover:bg-surface-2">
               RFIs <ArrowUpRight className="size-3.5" aria-hidden />
+            </Link>
+          )}
+          {CONTRACTS.some((c) => c.projectId === p.id) && (
+            <Link href={`/contracts/?project=${p.id}`} className="inline-flex h-8 items-center gap-1.5 rounded-md border border-line-strong bg-surface px-3 text-sm font-semibold text-ink hover:bg-surface-2">
+              Contracts <ArrowUpRight className="size-3.5" aria-hidden />
             </Link>
           )}
           <Link href={`/cost/?project=${p.id}`} className="inline-flex h-8 items-center gap-1.5 rounded-md border border-line-strong bg-surface px-3 text-sm font-semibold text-ink hover:bg-surface-2">
