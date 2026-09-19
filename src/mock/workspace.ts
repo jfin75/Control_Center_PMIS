@@ -127,6 +127,7 @@ export const INTEGRATIONS: Integration[] = [
   { id: "workday", name: "Workday Financials", purpose: "Source of A (Original Budget), D (Commitments), I (Payments)", status: "Connected", lastSync: "Today 06:00", feeds: "Budgets, POs, supplier invoices, journals" },
   { id: "p6", name: "Primavera P6", purpose: "Baseline and forecast milestone dates", status: "Connected", lastSync: "Today 05:30", feeds: "Milestones, SPI" },
   { id: "docusign", name: "DocuSign", purpose: "Change order and contract execution", status: "Connected", lastSync: "Today 09:12", feeds: "Envelope status" },
+  { id: "signvault", name: "SignVault", purpose: "PAdES e-signature for contracts, change orders, and task orders", status: "Connected", lastSync: "Today 08:40", feeds: "Envelopes, signer progress, audit trails, sealed PDFs" },
   { id: "arcgis", name: "Esri ArcGIS", purpose: "Parcel boundaries and zoning layers", status: "Error", lastSync: "Sep 12, 22:00", feeds: "Parcels, zoning" },
   { id: "lease", name: "Lease administration", purpose: "Lease schedule and rent roll", status: "Not connected", lastSync: null, feeds: "Leases, options, CAM" },
 ];

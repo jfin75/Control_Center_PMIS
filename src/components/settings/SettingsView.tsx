@@ -9,6 +9,7 @@ import { PageHeader, Panel } from "@/components/ui/Panel";
 import { cx } from "@/lib/format";
 import { usePrefs } from "@/lib/prefs";
 import { ORG, PEOPLE, ROLES, type Role } from "@/mock/org";
+import { SignVaultApi } from "./SignVaultApi";
 import { DEFAULT_RBAC, INTEGRATIONS, NOTIFICATION_RULES, PERMISSIONS, RBAC_MODULES, WEBHOOKS, WEBHOOK_EVENTS, type Permission } from "@/mock/workspace";
 
 type Section = "org" | "roles" | "rules" | "integrations";
@@ -307,6 +308,11 @@ function IntegrationsSection() {
                   {i.lastSync && ` · last sync ${i.lastSync}`}
                 </div>
               </div>
+              {i.id === "signvault" && (
+                <Button size="sm" variant="ghost" onClick={() => document.getElementById("signvault")?.scrollIntoView({ behavior: "smooth", block: "start" })}>
+                  API reference
+                </Button>
+              )}
               {i.status === "Not connected" ? (
                 <Button size="sm" variant="tint">
                   Connect
@@ -432,6 +438,8 @@ function IntegrationsSection() {
           </p>
         </form>
       </Panel>
+
+      <SignVaultApi />
     </div>
   );
 }
