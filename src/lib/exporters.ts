@@ -19,6 +19,10 @@ function save(filename: string, blob: Blob) {
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
+export function downloadText(filename: string, text: string, type: string) {
+  save(filename, new Blob([text], { type }));
+}
+
 export function toCsv(headers: string[], rows: Cell[][]): string {
   return [headers, ...rows].map((r) => r.map(csvCell).join(",")).join("\r\n");
 }

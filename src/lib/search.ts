@@ -6,11 +6,12 @@ import { BID_PACKAGES } from "@/mock/bidding";
 import { CONTRACTS, MOD_TYPES, MODS, modNumber, templateById } from "@/mock/contracts";
 import { PIPELINE } from "@/mock/planning";
 import { RFIS, rfiNumber } from "@/mock/rfis";
+import { LATEST_SEEDED } from "@/mock/schedules";
 import { SUBMITTALS } from "@/mock/submittals";
 import { fuzzyMatch } from "./fuzzy";
 import { NAV } from "./nav";
 
-export type SearchKind = "Page" | "Property" | "Project" | "Cost code" | "Contractor" | "Bid package" | "Planning request" | "Submittal" | "RFI" | "Contract" | "Contract change";
+export type SearchKind = "Page" | "Property" | "Project" | "Cost code" | "Contractor" | "Bid package" | "Planning request" | "Submittal" | "RFI" | "Contract" | "Contract change" | "Schedule";
 
 export interface SearchItem {
   id: string;
@@ -115,6 +116,18 @@ export const SEARCH_INDEX: SearchItem[] = [
       meta: `${c.number}${p ? ` · ${p.code}` : ""} · ${MOD_TYPES[m.type].label}`,
       href: `/contracts/?tab=changes&mod=${encodeURIComponent(m.id)}`,
       keywords: `${MOD_TYPES[m.type].label} ${m.ref ?? ""}`,
+    };
+  }),
+  // Newest seeded version per project; the Schedule view opens whichever is current.
+  ...LATEST_SEEDED.map((s) => {
+    const p = PROJECTS.find((x) => x.id === s.projectId)!;
+    return {
+      id: `schedule-${s.projectId}`,
+      kind: "Schedule" as const,
+      title: `${p.code} schedule`,
+      meta: `${p.name} · ${s.name}`,
+      href: `/schedule/?project=${s.projectId}`,
+      keywords: "gantt critical path p6 primavera ms project cpm baseline float",
     };
   }),
 ];
